@@ -42,20 +42,26 @@ public class Main {
         CancelBooking cancel = new CancelBooking(bookingList);
 
         // 3 vendors for each service (in the full system these come from Vendor Management)
-        Vendor[] photographers = new Vendor[3];
+        Vendor[] photographers = new Vendor[4];
         photographers[0] = new Vendor(1, "Lens Studio", "Photography", 75000);
         photographers[1] = new Vendor(2, "Golden Frame", "Photography", 90000);
         photographers[2] = new Vendor(3, "Snap Moments", "Photography", 60000);
+        photographers[3] = new Vendor(4, "Helen's Studio", "Photography", 80000);
 
-        Vendor[] caterers = new Vendor[3];
-        caterers[0] = new Vendor(4, "Royal Caterers", "Catering", 250000);
-        caterers[1] = new Vendor(5, "Spice Garden", "Catering", 200000);
-        caterers[2] = new Vendor(6, "Taste of Lanka", "Catering", 180000);
 
-        Vendor[] decorators = new Vendor[3];
-        decorators[0] = new Vendor(7, "Bloom Decor", "Decoration", 120000);
-        decorators[1] = new Vendor(8, "Elegant Events", "Decoration", 150000);
-        decorators[2] = new Vendor(9, "Petal Touch", "Decoration", 100000);
+        Vendor[] caterers = new Vendor[4];
+        caterers[0] = new Vendor(5, "Royal Caterers", "Catering", 250000);
+        caterers[1] = new Vendor(6, "Spice Garden", "Catering", 200000);
+        caterers[2] = new Vendor(7, "Taste of Lanka", "Catering", 180000);
+        caterers[3] = new Vendor(8, "Hilton Caterers", "Catering", 300000);
+
+
+        Vendor[] decorators = new Vendor[4];
+        decorators[0] = new Vendor(9, "Bloom Decor", "Decoration", 120000);
+        decorators[1] = new Vendor(10, "Elegant Events", "Decoration", 150000);
+        decorators[2] = new Vendor(11, "Petal Touch", "Decoration", 100000);
+        decorators[3] = new Vendor(12, "Charming Events", "Decoration", 180000);
+
 
         int coupleCount = 0;
         int choice = 0;
