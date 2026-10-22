@@ -3,69 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${booking.id == null} ? 'Create Booking' : 'Update Booking'">Booking</title>
-    <style>
-        body { font-family: -apple-system, Arial, sans-serif; margin: 24px; color: #222; background: #fafafa; }
-        form { display: grid; grid-template-columns: 180px 1fr; gap: 10px 12px; max-width: 540px;
-               background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
-        input, select { padding: 6px; font-size: 14px; }
-        input[readonly] { background: #eee; }
-        .field-error { color: #b00020; font-size: 13px; grid-column: 2; margin-top: -6px; }
-        .error { color: #b00020; font-weight: bold; }
-        button { padding: 7px 14px; font-size: 14px; cursor: pointer; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/wedding.css}" href="/css/wedding.css" rel="stylesheet">
+    <!-- flatpickr: the pop-up calendar for the wedding date -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" rel="stylesheet">
+    <title th:text="${booking.id == null} ? 'Book a Wedding' : 'Update Booking'">Booking</title>
 </head>
-<body>
-<h1 th:text="${booking.id == null} ? 'Create Booking' : 'Update Booking ' + ${booking.id}">Booking</h1>
+<body class="bg-light">
+    <nav class="navbar navbar-expand bg-white border-bottom mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" th:href="@{/bookings/new}">Wedding Portal</a>
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/bookings/new}">Book a Wedding</a>
+                <a class="nav-link" th:href="@{/bookings/my}">My Bookings</a>
+                <a class="nav-link" th:href="@{/bookings/admin}">All Bookings</a>
+            </div>
+        </div>
+    </nav>
+<main class="container" style="max-width: 720px">
+    <h1 class="h3 mb-3" th:text="${booking.id == null} ? 'Book your wedding' : 'Update booking ' + ${booking.id}">Booking</h1>
+    <p class="text-muted" th:if="${booking.id == null}">
+        Fill in your details, choose the vendors you want and the date of your wedding.
+        Keep your phone number: you use it to find, change or cancel your booking later.
+    </p>
 
-<p class="error" th:if="${error}" th:text="${error}"></p>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('${booking.*}')}">
+        Please fix these and try again:
+        <ul class="mb-0"><li th:each="e : ${#fields.errors('${booking.*}')}" th:text="${e}"></li></ul>
+    </div>
 
-<form method="post" th:object="${booking}"
-      th:action="${booking.id == null} ? @{/bookings} : @{/bookings/{id}(id=${booking.id})}">
+    <form method="post" class="card card-body shadow-sm" th:object="${booking}"
+          th:action="${booking.id == null} ? @{/bookings} : @{/bookings/{id}(id=${booking.id}, phone=${booking.couple.phone})}">
 
-    <!-- The couple can only be typed when creating; when updating it is shown but not changed -->
-    <label for="bride">Bride's name</label>
-    <input id="bride" th:field="*{couple.brideName}" th:readonly="${booking.id != null}">
-    <span class="field-error" th:if="${#fields.hasErrors('couple.brideName')}" th:errors="*{couple.brideName}"></span>
+        <h2 class="h6 text-uppercase text-muted">Your details</h2>
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label class="form-label" for="bride">Bride's name</label>
+                <input class="form-control" id="bride" th:field="*{couple.brideName}" th:readonly="${booking.id != null}"
+                       th:classappend="${#fields.hasErrors('couple.brideName')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{couple.brideName}"></div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="groom">Groom's name</label>
+                <input class="form-control" id="groom" th:field="*{couple.groomName}" th:readonly="${booking.id != null}"
+                       th:classappend="${#fields.hasErrors('couple.groomName')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{couple.groomName}"></div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="phone">Phone number</label>
+                <input class="form-control" id="phone" th:field="*{couple.phone}" th:readonly="${booking.id != null}"
+                       th:classappend="${#fields.hasErrors('couple.phone')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{couple.phone}"></div>
+            </div>
+        </div>
 
-    <label for="groom">Groom's name</label>
-    <input id="groom" th:field="*{couple.groomName}" th:readonly="${booking.id != null}">
-    <span class="field-error" th:if="${#fields.hasErrors('couple.groomName')}" th:errors="*{couple.groomName}"></span>
+        <h2 class="h6 text-uppercase text-muted">Your wedding</h2>
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label class="form-label" for="eventDate">Wedding date</label>
+                <input class="form-control" id="eventDate" type="text" placeholder="Click to pick a date"
+                       th:field="*{eventDate}"
+                       th:classappend="${#fields.hasErrors('eventDate')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{eventDate}"></div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="guestCount">Number of guests</label>
+                <input class="form-control" id="guestCount" type="number" min="1" th:field="*{guestCount}"
+                       th:classappend="${#fields.hasErrors('guestCount')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{guestCount}"></div>
+            </div>
+        </div>
 
-    <label for="phone">Phone number</label>
-    <input id="phone" th:field="*{couple.phone}" th:readonly="${booking.id != null}">
-    <span class="field-error" th:if="${#fields.hasErrors('couple.phone')}" th:errors="*{couple.phone}"></span>
+        <h2 class="h6 text-uppercase text-muted">Vendors (choose at least one)</h2>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label class="form-label" for="photographer">Photographer</label>
+                <select class="form-select" id="photographer" th:field="*{photographer}">
+                    <option value="">Not needed</option>
+                    <option th:each="v : ${photographers}" th:value="${v.vendorName}"
+                            th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="caterer">Caterer</label>
+                <select class="form-select" id="caterer" th:field="*{caterer}">
+                    <option value="">Not needed</option>
+                    <option th:each="v : ${caterers}" th:value="${v.vendorName}"
+                            th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label" for="decorator">Decorator</label>
+                <select class="form-select" id="decorator" th:field="*{decorator}">
+                    <option value="">Not needed</option>
+                    <option th:each="v : ${decorators}" th:value="${v.vendorName}"
+                            th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                </select>
+            </div>
+        </div>
 
-    <label for="photographer">Photographer</label>
-    <select id="photographer" th:field="*{photographer}">
-        <option value="">Not selected</option>
-        <option th:each="v : ${photographers}" th:value="${v.vendorName}"
-                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
-    </select>
-
-    <label for="caterer">Caterer</label>
-    <select id="caterer" th:field="*{caterer}">
-        <option value="">Not selected</option>
-        <option th:each="v : ${caterers}" th:value="${v.vendorName}"
-                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
-    </select>
-
-    <label for="decorator">Decorator</label>
-    <select id="decorator" th:field="*{decorator}">
-        <option value="">Not selected</option>
-        <option th:each="v : ${decorators}" th:value="${v.vendorName}"
-                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
-    </select>
-
-    <label for="eventDate">Event date</label>
-    <input id="eventDate" type="date" th:field="*{eventDate}">
-    <span class="field-error" th:if="${#fields.hasErrors('eventDate')}" th:errors="*{eventDate}"></span>
-
-    <span></span>
-    <span>
-        <button type="submit" th:text="${booking.id == null} ? 'Create Booking' : 'Save Changes'">Save</button>
-        <a th:href="@{/bookings}">Back to bookings</a>
-    </span>
-</form>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"
+                    th:text="${booking.id == null} ? 'Confirm Booking' : 'Save Changes'">Save</button>
+            <a class="btn btn-outline-secondary" th:if="${booking.id != null}"
+               th:href="@{/bookings/my(phone=${booking.couple.phone})}">Back to my bookings</a>
+        </div>
+    </form>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+<script>
+    // Opens a calendar when the date box is clicked. The date is sent as YYYY-MM-DD,
+    // and only today or later dates can be chosen.
+    flatpickr("#eventDate", { dateFormat: "Y-m-d", minDate: "today", allowInput: true });
+</script>
 </body>
 </html>

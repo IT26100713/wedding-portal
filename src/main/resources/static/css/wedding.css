@@ -1,0 +1,77 @@
+/* Colourful wedding theme for the booking pages (loaded after Bootstrap) */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --rose: #e75480;
+    --rose-dark: #c2185b;
+    --gold: #f4b942;
+    --lavender: #9b6dd6;
+    --mint: #2bb5a0;
+}
+
+body.bg-light {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffe3ec 0%, #fff4d6 45%, #e8dcff 100%) fixed !important;
+}
+
+nav.navbar {
+    background: linear-gradient(90deg, var(--rose), var(--lavender)) !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(155, 109, 214, .35);
+}
+nav.navbar .navbar-brand {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #fff !important;
+}
+nav.navbar .nav-link, nav.navbar a { color: #fff !important; font-weight: 500; }
+nav.navbar .nav-link:hover, nav.navbar a:hover { color: var(--gold) !important; }
+
+h1, h2, h3 {
+    font-family: 'Great Vibes', cursive;
+    color: var(--rose-dark);
+    font-size: 2.6rem;
+}
+h5, h6, .form-label { color: var(--lavender); font-weight: 600; }
+
+.card {
+    border: none !important;
+    border-radius: 18px !important;
+    border-top: 6px solid var(--rose) !important;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 8px 24px rgba(231, 84, 128, .18) !important;
+    transition: transform .2s;
+}
+.card:hover { transform: translateY(-3px); }
+
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 2px solid #f3c6d6;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 .2rem rgba(155, 109, 214, .25);
+}
+
+.btn { border-radius: 30px; font-weight: 500; padding-left: 1.4rem; padding-right: 1.4rem; }
+.btn-primary {
+    background: linear-gradient(90deg, var(--rose), var(--lavender));
+    border: none;
+}
+.btn-primary:hover { background: linear-gradient(90deg, var(--rose-dark), var(--lavender)); }
+.btn-outline-primary { color: var(--lavender); border-color: var(--lavender); }
+.btn-outline-primary:hover { background: var(--lavender); border-color: var(--lavender); }
+
+.alert-success {
+    background: linear-gradient(90deg, #d4fff4, #fff8dc);
+    border: 2px solid var(--mint);
+    color: #136b5e;
+    border-radius: 14px;
+}
+.badge.bg-success, .text-bg-success { background: var(--mint) !important; }
+
+.table thead th { background: var(--rose) !important; color: #fff !important; }
+.table-striped > tbody > tr:nth-of-type(odd) > * { background: #fff0f5; }
+
+.flatpickr-day.selected { background: var(--rose) !important; border-color: var(--rose) !important; }

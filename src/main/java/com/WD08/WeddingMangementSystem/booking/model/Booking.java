@@ -12,9 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-// A Booking links one Couple to up to 3 Vendors:
+// A Booking is made by a Couple (the user) and links them to up to 3 Vendors:
 // a photographer, a caterer and a decorator.
 // @Entity: each Booking object is saved as one row of the MySQL table "bookings".
 // The vendor columns hold the vendor's name, or NULL if that service was not chosen.
@@ -38,6 +40,11 @@ public class Booking {
 
     @Column(length = 100)
     private String decorator;
+
+    @NotNull(message = "Number of guests is required")
+    @Min(value = 1, message = "Number of guests must be at least 1")
+    @Max(value = 2000, message = "Number of guests can be at most 2000")
+    private Integer guestCount;
 
     @NotNull(message = "Event date is required")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)   // reads "2026-12-20" from the form
@@ -91,6 +98,14 @@ public class Booking {
 
     public void setDecorator(String decorator) {
         this.decorator = decorator;
+    }
+
+    public Integer getGuestCount() {
+        return guestCount;
+    }
+
+    public void setGuestCount(Integer guestCount) {
+        this.guestCount = guestCount;
     }
 
     public LocalDate getEventDate() {

@@ -1,18 +1,17 @@
 package com.WD08.WeddingMangementSystem.booking.model;
 
-// A photographer, caterer or decorator that a couple can book.
-// (Later these can come from the Vendor Management module instead of VendorService.)
-public class Vendor {
+// ABSTRACTION: a Vendor is never created directly. Only its subclasses
+// (Photographer, Caterer, Decorator) can be created, and each one decides
+// how its own cost is worked out.
+public abstract class Vendor {
+    // ENCAPSULATION: fields are private, read through getters only
     private int vendorId;
     private String vendorName;
-    private String serviceType;   // Photography, Catering or Decoration
     private double price;
 
-    // Parameterized constructor
-    public Vendor(int vendorId, String vendorName, String serviceType, double price) {
+    public Vendor(int vendorId, String vendorName, double price) {
         this.vendorId = vendorId;
         this.vendorName = vendorName;
-        this.serviceType = serviceType;
         this.price = price;
     }
 
@@ -24,11 +23,16 @@ public class Vendor {
         return vendorName;
     }
 
-    public String getServiceType() {
-        return serviceType;
-    }
-
     public double getPrice() {
         return price;
     }
+
+    // Each subclass must say which service it is: Photography, Catering or Decoration
+    public abstract String getServiceType();
+
+    // POLYMORPHISM: the same call gives a different result for each kind of vendor
+    public abstract double calculateCost(int guestCount);
+
+    // Short text shown next to the price, e.g. "per event" or "per guest"
+    public abstract String getPriceLabel();
 }
