@@ -1,37 +1,39 @@
-package model;
+package com.WD08.WeddingMangementSystem.booking.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+
+// The couple who makes a booking.
+// @Embeddable: the couple's details are saved as columns of the bookings table
+// (bride_name, groom_name, phone), inside each Booking row.
+@Embeddable
 public class Couple {
-    private int coupleId;
+
+    @NotBlank(message = "Bride name is required")
+    @Column(length = 100, nullable = false)
     private String brideName;
+
+    @NotBlank(message = "Groom name is required")
+    @Column(length = 100, nullable = false)
     private String groomName;
+
+    @NotBlank(message = "Phone number is required")
+    @Column(length = 20, nullable = false)
     private String phone;
 
-    // Default constructor
+    // Default constructor (JPA needs it)
     public Couple() {
-        coupleId = 0;
         brideName = "";
         groomName = "";
         phone = "";
     }
 
     // Parameterized constructor
-    public Couple(int coupleId, String brideName, String groomName, String phone) {
-        setCoupleId(coupleId);
+    public Couple(String brideName, String groomName, String phone) {
         this.brideName = brideName;
         this.groomName = groomName;
         this.phone = phone;
-    }
-
-    public int getCoupleId() {
-        return coupleId;
-    }
-
-    public void setCoupleId(int coupleId) {
-        if (coupleId > 0) {
-            this.coupleId = coupleId;
-        } else {
-            System.out.println("Couple ID must be greater than 0");
-        }
     }
 
     public String getBrideName() {
@@ -56,11 +58,5 @@ public class Couple {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public void displayDetails() {
-        System.out.println("Couple ID   : " + coupleId);
-        System.out.println("Couple      : " + brideName + " & " + groomName);
-        System.out.println("Phone       : " + phone);
     }
 }

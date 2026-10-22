@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${booking.id == null} ? 'Create Booking' : 'Update Booking'">Booking</title>
+    <style>
+        body { font-family: -apple-system, Arial, sans-serif; margin: 24px; color: #222; background: #fafafa; }
+        form { display: grid; grid-template-columns: 180px 1fr; gap: 10px 12px; max-width: 540px;
+               background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+        input, select { padding: 6px; font-size: 14px; }
+        input[readonly] { background: #eee; }
+        .field-error { color: #b00020; font-size: 13px; grid-column: 2; margin-top: -6px; }
+        .error { color: #b00020; font-weight: bold; }
+        button { padding: 7px 14px; font-size: 14px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h1 th:text="${booking.id == null} ? 'Create Booking' : 'Update Booking ' + ${booking.id}">Booking</h1>
+
+<p class="error" th:if="${error}" th:text="${error}"></p>
+
+<form method="post" th:object="${booking}"
+      th:action="${booking.id == null} ? @{/bookings} : @{/bookings/{id}(id=${booking.id})}">
+
+    <!-- The couple can only be typed when creating; when updating it is shown but not changed -->
+    <label for="bride">Bride's name</label>
+    <input id="bride" th:field="*{couple.brideName}" th:readonly="${booking.id != null}">
+    <span class="field-error" th:if="${#fields.hasErrors('couple.brideName')}" th:errors="*{couple.brideName}"></span>
+
+    <label for="groom">Groom's name</label>
+    <input id="groom" th:field="*{couple.groomName}" th:readonly="${booking.id != null}">
+    <span class="field-error" th:if="${#fields.hasErrors('couple.groomName')}" th:errors="*{couple.groomName}"></span>
+
+    <label for="phone">Phone number</label>
+    <input id="phone" th:field="*{couple.phone}" th:readonly="${booking.id != null}">
+    <span class="field-error" th:if="${#fields.hasErrors('couple.phone')}" th:errors="*{couple.phone}"></span>
+
+    <label for="photographer">Photographer</label>
+    <select id="photographer" th:field="*{photographer}">
+        <option value="">Not selected</option>
+        <option th:each="v : ${photographers}" th:value="${v.vendorName}"
+                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
+    </select>
+
+    <label for="caterer">Caterer</label>
+    <select id="caterer" th:field="*{caterer}">
+        <option value="">Not selected</option>
+        <option th:each="v : ${caterers}" th:value="${v.vendorName}"
+                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
+    </select>
+
+    <label for="decorator">Decorator</label>
+    <select id="decorator" th:field="*{decorator}">
+        <option value="">Not selected</option>
+        <option th:each="v : ${decorators}" th:value="${v.vendorName}"
+                th:text="${v.vendorName} + ' - Rs.' + ${v.price}"></option>
+    </select>
+
+    <label for="eventDate">Event date</label>
+    <input id="eventDate" type="date" th:field="*{eventDate}">
+    <span class="field-error" th:if="${#fields.hasErrors('eventDate')}" th:errors="*{eventDate}"></span>
+
+    <span></span>
+    <span>
+        <button type="submit" th:text="${booking.id == null} ? 'Create Booking' : 'Save Changes'">Save</button>
+        <a th:href="@{/bookings}">Back to bookings</a>
+    </span>
+</form>
+</body>
+</html>
