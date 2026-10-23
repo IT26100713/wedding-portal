@@ -16,8 +16,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-// A Booking is made by a Couple (the user) and links them to up to 3 Vendors:
-// a photographer, a caterer and a decorator.
+// A Booking is made by a Couple (the user) and links them to up to 4 Vendors:
+// a photographer, a caterer, a decorator and a venue.
 // @Entity: each Booking object is saved as one row of the MySQL table "bookings".
 // The vendor columns hold the vendor's name, or NULL if that service was not chosen.
 @Entity
@@ -41,13 +41,16 @@ public class Booking {
     @Column(length = 100)
     private String decorator;
 
+    @Column(length = 100)
+    private String venue;
+
     @NotNull(message = "Number of guests is required")
     @Min(value = 1, message = "Number of guests must be at least 1")
     @Max(value = 2000, message = "Number of guests can be at most 2000")
     private Integer guestCount;
 
     @NotNull(message = "Event date is required")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)   // reads "2026-12-20" from the form
+    @DateTimeFormat(pattern = "yyyy-MM-dd")   // reads "2026-12-20" from the form
     @Column(nullable = false)
     private LocalDate eventDate;
 
@@ -98,6 +101,14 @@ public class Booking {
 
     public void setDecorator(String decorator) {
         this.decorator = decorator;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
     }
 
     public Integer getGuestCount() {
