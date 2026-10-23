@@ -69,6 +69,7 @@ public class BookingService {
         booking.setPhotographer(changes.getPhotographer());
         booking.setCaterer(changes.getCaterer());
         booking.setDecorator(changes.getDecorator());
+        booking.setVenue(changes.getVenue());
         booking.setGuestCount(changes.getGuestCount());
         booking.setEventDate(changes.getEventDate());
         checkVendors(booking);
@@ -91,7 +92,8 @@ public class BookingService {
         int guests = b.getGuestCount() == null ? 0 : b.getGuestCount();
         return vendorService.costOf(b.getPhotographer(), "Photography", guests)
                 + vendorService.costOf(b.getCaterer(), "Catering", guests)
-                + vendorService.costOf(b.getDecorator(), "Decoration", guests);
+                + vendorService.costOf(b.getDecorator(), "Decoration", guests)
+                + vendorService.costOf(b.getVenue(), "Venue", guests);
     }
 
     // Lines of the bookings.txt file, for the admin page
@@ -109,13 +111,16 @@ public class BookingService {
         b.setPhotographer(emptyToNull(b.getPhotographer()));
         b.setCaterer(emptyToNull(b.getCaterer()));
         b.setDecorator(emptyToNull(b.getDecorator()));
+        b.setVenue(emptyToNull(b.getVenue()));
 
-        if (b.getPhotographer() == null && b.getCaterer() == null && b.getDecorator() == null) {
+        if (b.getPhotographer() == null && b.getCaterer() == null && b.getDecorator() == null
+                && b.getVenue() == null) {
             throw new IllegalArgumentException("Please choose at least one vendor.");
         }
         checkVendor(b.getPhotographer(), "Photography");
         checkVendor(b.getCaterer(), "Catering");
         checkVendor(b.getDecorator(), "Decoration");
+        checkVendor(b.getVenue(), "Venue");
     }
 
     private void checkVendor(String name, String serviceType) {

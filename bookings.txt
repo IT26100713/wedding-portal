@@ -1,24 +1,13 @@
-========== Booking 3 ==========
-Bride        : shi
-Groom        : lahi
-Phone        : 86654542
+============================
+Bride        : ete
+Groom        : fdh
+Phone        : 1233
 Photographer : Golden Frame
 Caterer      : Not selected
 Decorator    : Not selected
-Guests       : 500
-Event Date   : 2026-02-19
-Status       : Confirmed
-Total (Rs.)  : 90000.0
-
-========== Booking 4 ==========
-Bride        : svdvf
-Groom        : djhy
-Phone        : 1234
-Photographer : Golden Frame
-Caterer      : Spice Garden
-Decorator    : Elegant Events
-Guests       : 456
+Venue        : Not selected
+Guests       : 243
 Event Date   : 2026-10-31
 Status       : Confirmed
-Total (Rs.)  : 1192000.0
+Total (Rs.)  : 90000.0
 

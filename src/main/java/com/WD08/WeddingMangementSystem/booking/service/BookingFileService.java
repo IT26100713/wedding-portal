@@ -23,13 +23,14 @@ public class BookingFileService {
     public void writeAll(List<Booking> bookings, BookingService bookingService) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
             for (Booking b : bookings) {
-                writer.println("========== Booking " + b.getId() + " ==========");
+                writer.println("============================");
                 writer.println("Bride        : " + b.getCouple().getBrideName());
                 writer.println("Groom        : " + b.getCouple().getGroomName());
                 writer.println("Phone        : " + b.getCouple().getPhone());
                 writer.println("Photographer : " + orNotSelected(b.getPhotographer()));
                 writer.println("Caterer      : " + orNotSelected(b.getCaterer()));
                 writer.println("Decorator    : " + orNotSelected(b.getDecorator()));
+                writer.println("Venue        : " + orNotSelected(b.getVenue()));
                 writer.println("Guests       : " + b.getGuestCount());
                 writer.println("Event Date   : " + b.getEventDate());
                 writer.println("Status       : " + b.getStatus());

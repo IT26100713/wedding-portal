@@ -29,7 +29,6 @@ import jakarta.validation.Valid;
 //   GET  /bookings/{id}/edit?phone=...       form with their booking      (Update)
 //   POST /bookings/{id}?phone=...            save the changes
 //   POST /bookings/{id}/cancel?phone=...     delete their booking         (Delete)
-//   GET  /bookings/admin                     every booking + bookings.txt (admin view)
 @Controller
 @RequestMapping("/bookings")
 public class BookingController {
@@ -140,16 +139,6 @@ public class BookingController {
         return "redirect:/bookings/my";
     }
 
-    // ---------- Admin view ----------
-    @GetMapping("/admin")
-    public String allBookings(Model model) {
-        List<Booking> bookings = bookingService.viewBooking();
-        model.addAttribute("bookings", bookings);
-        model.addAttribute("totals", totalsOf(bookings));
-        model.addAttribute("fileLines", bookingService.readBookingFile());
-        return "booking/bookings";
-    }
-
     // Total price of each booking, by booking ID
     private Map<Integer, Double> totalsOf(List<Booking> bookings) {
         Map<Integer, Double> totals = new HashMap<Integer, Double>();
@@ -165,6 +154,7 @@ public class BookingController {
         model.addAttribute("photographers", vendorService.getVendors("Photography"));
         model.addAttribute("caterers", vendorService.getVendors("Catering"));
         model.addAttribute("decorators", vendorService.getVendors("Decoration"));
+        model.addAttribute("venues", vendorService.getVendors("Venue"));
         return "booking/booking-form";
     }
 }
