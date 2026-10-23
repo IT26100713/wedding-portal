@@ -9,6 +9,7 @@ import com.WD08.WeddingMangementSystem.booking.model.Caterer;
 import com.WD08.WeddingMangementSystem.booking.model.Decorator;
 import com.WD08.WeddingMangementSystem.booking.model.Photographer;
 import com.WD08.WeddingMangementSystem.booking.model.Vendor;
+import com.WD08.WeddingMangementSystem.booking.model.Venue;
 
 // The vendors a couple can choose from: 4 photographers, 4 caterers and 4 decorators.
 // The list holds Vendor objects, but each one is really a Photographer, Caterer or
@@ -30,6 +31,10 @@ public class VendorService {
         vendors.add(new Decorator(10, "Elegant Events", 150000));
         vendors.add(new Decorator(11, "Petal Touch", 100000));
         vendors.add(new Decorator(12, "Charming Events", 180000));
+        vendors.add(new Venue(13, "Cinnamon Grand Ballroom", 250000));
+        vendors.add(new Venue(14, "Mount Lavinia Hotel", 300000));
+        vendors.add(new Venue(15, "Waters Edge", 220000));
+        vendors.add(new Venue(16, "Galle Face Hotel", 350000));
     }
 
     // Returns all vendors of one service type, e.g. "Photography"

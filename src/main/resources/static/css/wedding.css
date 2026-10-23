@@ -28,12 +28,12 @@ nav.navbar .navbar-brand {
 nav.navbar .nav-link, nav.navbar a { color: #fff !important; font-weight: 500; }
 nav.navbar .nav-link:hover, nav.navbar a:hover { color: var(--gold) !important; }
 
-h1, h2, h3 {
+h1:not(.h6), h2:not(.h6), h3:not(.h6) {
     font-family: 'Great Vibes', cursive;
     color: var(--rose-dark);
     font-size: 2.6rem;
 }
-h5, h6, .form-label { color: var(--lavender); font-weight: 600; }
+h5, h6, .h6, .form-label { color: var(--lavender); font-weight: 600; }
 
 .card {
     border: none !important;
