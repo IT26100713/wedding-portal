@@ -11,3 +11,16 @@ Event Date   : 2026-10-31
 Status       : Confirmed
 Total (Rs.)  : 90000.0
 
+============================
+Bride        : cvczvz
+Groom        : affa
+Phone        : 124787
+Photographer : Golden Frame
+Caterer      : Spice Garden
+Decorator    : Not selected
+Venue        : Not selected
+Guests       : 213
+Event Date   : 2026-11-19
+Status       : Confirmed
+Total (Rs.)  : 516000.0
+
