@@ -67,7 +67,7 @@ h5, h6, .h6, .form-label { color: var(--lavender); font-weight: 600; }
     background: linear-gradient(90deg, #d4fff4, #fff8dc);
     border: 2px solid var(--mint);
     color: #136b5e;
-    border-radius: 14px;
+    border-radius: 13px;
 }
 .badge.bg-success, .text-bg-success { background: var(--mint) !important; }
 
