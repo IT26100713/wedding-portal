@@ -24,3 +24,29 @@ Event Date   : 2026-11-19
 Status       : Confirmed
 Total (Rs.)  : 516000.0
 
+============================
+Bride        : hjqhr
+Groom        : uzcytu
+Phone        : 1234
+Photographer : Golden Frame
+Caterer      : Hilton Caterers
+Decorator    : Charming Events
+Venue        : Galle Face Hotel
+Guests       : 150
+Event Date   : 2026-11-21
+Status       : Confirmed
+Total (Rs.)  : 1155000.0
+
+============================
+Bride        : qwe
+Groom        : asd
+Phone        : 12345
+Photographer : Snap Moments
+Caterer      : Taste of Lanka
+Decorator    : Petal Touch
+Venue        : Waters Edge
+Guests       : 123
+Event Date   : 2026-11-22
+Status       : Confirmed
+Total (Rs.)  : 672900.0
+

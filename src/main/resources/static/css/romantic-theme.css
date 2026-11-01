@@ -1,0 +1,46 @@
+/* Shared visual theme inspired by the supplied wedding portal video. */
+body.booking-page {
+    --plum: #3d214b; --pink: #b33d83; --border: #efdfed;
+    font-family: 'Poppins', sans-serif; color: var(--plum); min-height: 100vh;
+    background: radial-gradient(ellipse at 0% 15%, #ffe1eb 0, transparent 48%), radial-gradient(ellipse at 100% 40%, #ece0ff 0, transparent 50%), #fffcf9;
+}
+.booking-page .navbar { background: #fffcf9f2 !important; box-shadow: 0 4px 22px #61326009; border-bottom: 1px solid #f0e3ed !important; padding: 17px 0; }
+.booking-page .navbar-brand { color: #a33579; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+.booking-page .navbar-brand .brand-heart { color: #f6cfa1; margin-right: 7px; }
+.booking-page .navbar .nav-link { color: #744565; border-radius: 30px; }
+.booking-page .navbar .nav-link:hover { color: #a33579; background: #fff0f7; }
+.booking-page .wedding-hero { position: relative; isolation: isolate; overflow: hidden; padding: 90px 30px 76px; margin: 10px 0 44px; border-radius: 210px 210px 28px 28px; background: linear-gradient(160deg,#c99c97,#966578 55%,#502650); box-shadow: 0 22px 60px #9f508b22; }
+.booking-page .wedding-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg,#b9858844,#3c153ad9), url('/images/package-1.png') center 55% / cover; opacity: .65; }
+.booking-page .wedding-hero h1 { color: #fffaf4; font-family: 'Playfair Display',Georgia,serif; font-weight: 500 !important; font-size: clamp(2.5rem,5vw,4.7rem); line-height: 1.12; margin: 20px auto !important; max-width: 850px; }
+.booking-page .wedding-hero .text-muted { color: #fff1f4 !important; max-width: 650px; margin: 0 auto; line-height: 1.9; }
+.booking-page .wedding-hero span.text-uppercase { color: #ffe1be !important; letter-spacing: 3px; font-size: 11px; }
+.booking-page .package-card { border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 10px 35px #864a7510; transition: transform .2s,box-shadow .2s; }
+.booking-page .package-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px #864a7520; }
+.booking-page .package-card.is-selected { outline-color: #c768b0; }
+.booking-page .package-content { background: #fffdfef5; padding: 25px; }
+.booking-page .package-content h2 { color: var(--plum); font-family: 'Playfair Display',Georgia,serif; }
+.booking-page .package-photo { height: 225px; }
+.booking-page .package-photo span { color: #8b3e74; background: #fff7f4ed; font-size: 10px; }
+.booking-page .vendor-list { color: #796b7c; }
+.booking-page .package-price { color: #a33579; }
+.booking-page .price-note { color: #827386; }
+.booking-page .choose-package,.booking-page .btn-primary { border: 0; border-radius: 30px; background: linear-gradient(110deg,#ed6ca7,#ba6bd0); color: white; box-shadow: 0 8px 20px #cf68b52b; padding: 12px 22px; font-weight: 500; }
+.booking-page .choose-package:hover,.booking-page .choose-package[aria-pressed=true],.booking-page .btn-primary:hover { background: linear-gradient(110deg,#ce4a8d,#9653b0); color: white; }
+.booking-page .selection-summary { background: linear-gradient(110deg,#ffe5e5,#eee1ff); border: 1px solid #fff; border-radius: 20px; padding: 25px; color: var(--plum); }
+.booking-page #booking-details,.booking-page #booking-details + div { background: #ffffffda; border: 1px solid var(--border); border-radius: 22px; }
+.booking-page .form-control,.booking-page .form-select { border-color: #ecdeeb; background-color: #fffdff; color: #4e3a54; }
+.booking-page .form-control:focus,.booking-page .form-select:focus { border-color: #cc80bb; box-shadow: 0 0 0 .2rem #cd80ba22; }
+.booking-page .form-label { color: #7b5474; }
+.booking-page button:focus-visible,.booking-page a:focus-visible { outline-color: #b765ba; }
+.my-bookings-page .booking-search { background: #ffffffdd; border-color: var(--border); border-radius: 24px; }
+.my-bookings-page .search-action .btn { border-radius: 30px; }
+.my-bookings-page .lookup-hint { border-color: #dec3de; border-radius: 24px; background: #ffffff66; }
+.my-bookings-page .btn-outline-primary { color: #a33579; border-color: #d2a3ca; border-radius: 30px; }
+.my-bookings-page .btn-outline-primary:hover { background: #a33579; border-color: #a33579; color: #fff; }
+.my-bookings-page .booked-vendors li:nth-child(3n+1) { background: #ffe7ec; }
+.my-bookings-page .booked-vendors li:nth-child(3n+2) { background: #eee3ff; }
+.my-bookings-page .booked-vendors li:nth-child(3n) { background: #ddf5ee; }
+.my-bookings-page .booked-vendors strong { color: var(--plum); }
+.my-bookings-page .nav-link[aria-current=page] { color: #a33579; }
+@media(max-width:600px) { .booking-page .wedding-hero { border-radius: 100px 100px 22px 22px; padding: 60px 20px 45px; } .booking-page .wedding-hero span.text-uppercase { letter-spacing: 1.5px; } .booking-page .navbar-brand { font-size: 17px; } }
+@media(prefers-reduced-motion:reduce) { .booking-page .package-card { transition: none; } .booking-page .package-card:hover { transform: none; } }

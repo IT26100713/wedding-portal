@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/wedding.css}" href="/css/wedding.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" rel="stylesheet">
+    <link th:href="@{/css/booking-cards.css}" href="/css/booking-cards.css" rel="stylesheet">
+    <title th:text="${booking.id == null} ? 'Book a Wedding' : 'Update Booking'">Booking Portal</title>
+</head>
+<body class="booking-page">
+<!-- Navbar matching the video theme -->
+<nav class="navbar navbar-expand bg-white border-bottom mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" th:href="@{/bookings/new}">♥ Forever & Always</a>
+        <div class="navbar-nav ms-auto align-items-center">
+            <span class="nav-link me-3" th:if="${booking.couple != null && booking.couple.brideName != ''}" th:text="'Welcome, ' + ${booking.couple.brideName}">Welcome</span>
+            <a class="nav-link btn btn-sm btn-outline-secondary px-3" th:href="@{/bookings/my}">My Bookings</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4" >
+    <div class="text-center mb-5">
+        <span class="text-uppercase tracking-wider small text-muted">Your Dream Wedding Starts Here</span>
+        <h1 class="display-5 fw-bold mt-1" th:text="${booking.id == null} ? 'Book Your Special Day' : 'Update Your Booking'">Booking</h1>
+        <p class="text-muted" th:if="${booking.id == null}">
+            Select your preferred vendors, schedule your date, and create memories that last forever.
+        </p>
+    </div>
+
+    <div class="alert alert-danger shadow-sm" th:if="${error}" th:text="${error}"></div>
+    <div class="alert alert-danger shadow-sm" th:if="${#fields.hasErrors('${booking.*}')}">
+        Please fix the following errors and try again:
+        <ul class="mb-0"><li th:each="e : ${#fields.errors('${booking.*}')}" th:text="${e}"></li></ul>
+    </div>
+
+    <form method="post" class="booking-form mb-5" th:object="${booking}"
+          th:action="${booking.id == null} ? @{/bookings} : @{/bookings/{id}(id=${booking.id}, phone=${booking.couple.phone})}">
+
+        <section class="package-grid" aria-label="Wedding packages">
+            <article class="package-card" data-package="0">
+                <div class="package-photo photo-1"><img src="/images/package-1.png" alt="Timeless Romance wedding inspiration" onerror="this.hidden=true"><span>Collection 01</span></div>
+                <div class="package-content"><h2>Timeless Romance</h2><ul class="vendor-list"></ul>
+                    <p class="package-price"></p><p class="price-note">Includes catering for <span class="guest-label">0</span> guests</p>
+                    <button type="button" class="choose-package" aria-pressed="false">Choose package</button>
+                </div>
+            </article>
+            <article class="package-card" data-package="1">
+                <div class="package-photo photo-2"><img src="/images/package-2.png" alt="Golden Celebration wedding inspiration" onerror="this.hidden=true"><span>Collection 02</span></div>
+                <div class="package-content"><h2>Golden Celebration</h2><ul class="vendor-list"></ul>
+                    <p class="package-price"></p><p class="price-note">Includes catering for <span class="guest-label">0</span> guests</p>
+                    <button type="button" class="choose-package" aria-pressed="false">Choose package</button>
+                </div>
+            </article>
+            <article class="package-card" data-package="2">
+                <div class="package-photo photo-3"><img src="/images/package-3.png" alt="Garden Wedding wedding inspiration" onerror="this.hidden=true"><span>Collection 03</span></div>
+                <div class="package-content"><h2>Garden Wedding</h2><ul class="vendor-list"></ul>
+                    <p class="package-price"></p><p class="price-note">Includes catering for <span class="guest-label">0</span> guests</p>
+                    <button type="button" class="choose-package" aria-pressed="false">Choose package</button>
+                </div>
+            </article>
+            <article class="package-card" data-package="3">
+                <div class="package-photo photo-4"><img src="/images/package-4.png" alt="Elegant Moments wedding inspiration" onerror="this.hidden=true"><span>Collection 04</span></div>
+                <div class="package-content"><h2>Elegant Moments</h2><ul class="vendor-list"></ul>
+                    <p class="package-price"></p><p class="price-note">Includes catering for <span class="guest-label">0</span> guests</p>
+                    <button type="button" class="choose-package" aria-pressed="false">Choose package</button>
+                </div>
+            </article>
+            <article class="package-card" data-package="4">
+                <div class="package-photo photo-5"><img src="/images/package-5.png" alt="Grand Celebration wedding inspiration" onerror="this.hidden=true"><span>Collection 05</span></div>
+                <div class="package-content"><h2>Grand Celebration</h2><ul class="vendor-list"></ul>
+                    <p class="package-price"></p><p class="price-note">Includes catering for <span class="guest-label">0</span> guests</p>
+                    <button type="button" class="choose-package" aria-pressed="false">Choose package</button>
+                </div>
+            </article>
+            <article class="package-card custom-card">
+                <div class="package-photo photo-custom"><img src="/images/package-custom.png" alt="Custom wedding inspiration" onerror="this.hidden=true"><span>Made for you</span></div>
+                <div class="package-content">        <div class="mb-4">
+            <h2 class="h5 border-bottom pb-2 mb-3">Customize Your Wedding</h2>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label" for="photographer">Photographer</label>
+                    <select class="form-select" id="photographer" th:field="*{photographer}">
+                        <option value="">Not needed</option>
+                        <option th:each="v : ${photographers}" th:value="${v.vendorName}" th:attr="data-price=${v.price}"
+                                th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="caterer">Caterer</label>
+                    <select class="form-select" id="caterer" th:field="*{caterer}">
+                        <option value="">Not needed</option>
+                        <option th:each="v : ${caterers}" th:value="${v.vendorName}" th:attr="data-price=${v.price}"
+                                th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="decorator">Decorator</label>
+                    <select class="form-select" id="decorator" th:field="*{decorator}">
+                        <option value="">Not needed</option>
+                        <option th:each="v : ${decorators}" th:value="${v.vendorName}" th:attr="data-price=${v.price}"
+                                th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="venue">Venue</label>
+                    <select class="form-select" id="venue" th:field="*{venue}">
+                        <option value="">Not needed</option>
+                        <option th:each="v : ${venues}" th:value="${v.vendorName}" th:attr="data-price=${v.price}"
+                                th:text="${v.vendorName} + ' - Rs.' + ${#numbers.formatInteger(v.price, 1, 'COMMA')} + ' ' + ${v.priceLabel}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+<p class="price-note">Choose any combination of services.</p></div>
+            </article>
+        </section>
+        <div class="selection-summary" role="status" aria-live="polite"><span id="selection-label">Your selection</span><strong id="booking-total">Rs. 0</strong></div>
+        <div id="booking-details" class="mb-4">
+            <h2 class="h5 border-bottom pb-2 mb-3">1. Couple Details</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="bride">Bride's Name</label>
+                    <input class="form-control" id="bride" th:field="*{couple.brideName}" th:readonly="${booking.id != null}"
+                           th:classappend="${#fields.hasErrors('couple.brideName')} ? 'is-invalid'" placeholder="Enter bride name">
+                    <div class="invalid-feedback" th:errors="*{couple.brideName}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="groom">Groom's Name</label>
+                    <input class="form-control" id="groom" th:field="*{couple.groomName}" th:readonly="${booking.id != null}"
+                           th:classappend="${#fields.hasErrors('couple.groomName')} ? 'is-invalid'" placeholder="Enter groom name">
+                    <div class="invalid-feedback" th:errors="*{couple.groomName}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input class="form-control" id="phone" th:field="*{couple.phone}" th:readonly="${booking.id != null}"
+                           th:classappend="${#fields.hasErrors('couple.phone')} ? 'is-invalid'" placeholder="0712345678">
+                    <div class="invalid-feedback" th:errors="*{couple.phone}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="h5 border-bottom pb-2 mb-3">2. Event Schedule & Capacity</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="eventDate">Wedding Date</label>
+                    <input class="form-control" id="eventDate" type="date" placeholder="Select wedding date"
+                           th:field="*{eventDate}"
+                           th:classappend="${#fields.hasErrors('eventDate')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:errors="*{eventDate}"></div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="guestCount">Number of Guests</label>
+                    <input class="form-control" id="guestCount" type="number" min="1" th:field="*{guestCount}"
+                           th:classappend="${#fields.hasErrors('guestCount')} ? 'is-invalid'" placeholder="e.g. 150">
+                    <div class="invalid-feedback" th:errors="*{guestCount}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-3 pt-3">
+            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
+                    th:text="${booking.id == null} ? 'Confirm Booking' : 'Save Changes'">Save</button>
+            <a class="btn btn-outline-secondary py-2" th:if="${booking.id != null}"
+               th:href="@{/bookings/my(phone=${booking.couple.phone})}">Cancel</a>
+        </div>
+    </form>
+</main>
+<script th:src="@{/js/booking-cards.js}" src="/js/booking-cards.js"></script>
+</body>
+</html>
