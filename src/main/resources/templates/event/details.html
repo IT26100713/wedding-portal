@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${event.eventName} + ' Details'">Event Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css(v=20261104)}">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark">W</span>
+            <div>
+                <h2>Wedding</h2>
+                <small>Planner</small>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a class="nav-item" th:href="@{/events/dashboard}">Dashboard</a>
+            <a class="nav-item" th:href="@{/events}">All Events</a>
+            <a class="nav-item" th:href="@{/events/new}">Add Event</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Details</p>
+                <h1 th:text="${event.eventName}">Event Name</h1>
+            </div>
+            <div class="header-actions">
+                <a class="btn btn-secondary" th:href="@{/events/{id}/edit(id=${event.eventId})}">Edit Event</a>
+                <a class="btn btn-primary" th:href="@{/events}">All Events</a>
+            </div>
+        </header>
+
+        <section class="panel detail-card">
+            <div class="detail-header">
+                <div>
+                    <p class="detail-chip" th:text="${event.eventId}">EV001</p>
+                </div>
+                <span class="status-badge"
+                      th:classappend="${event.status == 'UPCOMING' ? ' upcoming' : (event.status == 'COMPLETED' ? ' completed' : ' cancelled') }"
+                      th:text="${event.status}">UPCOMING</span>
+            </div>
+
+            <div class="detail-grid">
+                <div><span>Event Date</span><strong th:text="${#temporals.format(event.eventDate, 'dd MMM yyyy')}">10 Jan 2026</strong></div>
+                <div><span>Start Time</span><strong th:text="${#temporals.format(event.startTime, 'HH:mm')}">18:00</strong></div>
+                <div><span>Venue</span><strong th:text="${event.venue}">Grand Hall</strong></div>
+                <div><span>Guests</span><strong th:text="${event.guestCount}">250</strong></div>
+                <div><span>Budget</span><strong th:text="${'Rs. ' + #numbers.formatDecimal(event.estimatedBudget, 1, 'COMMA', 2, 'POINT')}">Rs. 500,000.00</strong></div>
+            </div>
+
+            <div class="detail-description">
+                <h3>Description</h3>
+                <p th:text="${event.description}">Venue description</p>
+            </div>
+
+            <div class="detail-actions">
+                <form th:action="@{/events/{id}/delete(id=${event.eventId})}" method="post" onsubmit="return confirm('Delete this event?');">
+                    <button type="submit" class="btn btn-danger">Delete Event</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+<script th:src="@{/js/event.js}"></script>
+</body>
+</html>

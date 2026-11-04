@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events</title>
+    <link rel="stylesheet" th:href="@{/css/style.css(v=20261104)}">
+</head>
+<body class="dashboard-page events-page">
+<div class="dashboard-shell">
+    <header class="dashboard-header">
+        <a class="dashboard-brand" th:href="@{/events/dashboard}" aria-label="Forever and Always dashboard">
+            <span class="dashboard-brand-mark" aria-hidden="true">&#x2726;</span>
+            <span>Forever <em>&amp;</em> Always</span>
+        </a>
+        <nav class="dashboard-nav" aria-label="Main navigation">
+            <a th:href="@{/events/dashboard}">Dashboard</a>
+            <a class="active" th:href="@{/events}" aria-current="page">All Events</a>
+            <a th:href="@{/events/new}">Add Event</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-content events-content">
+        <section class="dashboard-hero" aria-labelledby="events-title">
+            <div class="dashboard-hero-copy">
+                <p class="eyebrow">Your celebration</p>
+                <h1 id="events-title">All Events</h1>
+                <p>Every special moment, thoughtfully planned in one place.</p>
+            </div>
+            <a class="btn btn-primary dashboard-hero-action" th:href="@{/events/new}">+ Add Event</a>
+        </section>
+
+        <div th:if="${successMessage}" class="flash-message success" th:text="${successMessage}"></div>
+
+        <section class="panel dashboard-events toolbar-panel event-filter-panel" aria-labelledby="event-filter-title">
+            <div class="panel-header">
+                <div>
+                    <p class="eyebrow">Find your plans</p>
+                    <h2 id="event-filter-title">Search events</h2>
+                </div>
+            </div>
+            <form th:action="@{/events}" method="get" class="toolbar-form event-filter-form">
+                <label class="field compact-field">
+                    <span>Search</span>
+                    <input type="text" name="search" th:value="${search}" placeholder="Event ID or name">
+                </label>
+
+                <label class="field compact-field">
+                    <span>Status</span>
+                    <select name="status">
+                        <option value="">All statuses</option>
+                        <option value="UPCOMING" th:selected="${status != null and status == 'UPCOMING'}">Upcoming</option>
+                        <option value="COMPLETED" th:selected="${status != null and status == 'COMPLETED'}">Completed</option>
+                        <option value="CANCELLED" th:selected="${status != null and status == 'CANCELLED'}">Cancelled</option>
+                    </select>
+                </label>
+
+                <div class="toolbar-buttons event-filter-buttons">
+                    <button type="submit" class="btn btn-primary">Apply</button>
+                    <a class="btn btn-secondary" th:href="@{/events}">Reset</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel dashboard-events events-list-panel" aria-labelledby="event-list-title">
+            <div class="panel-header">
+                <div>
+                    <p class="eyebrow">The details</p>
+                    <h2 id="event-list-title">Your event list</h2>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(events)}" class="empty-state">
+                <h3>No events found</h3>
+                <p>There are no events matching the selected filters.</p>
+                <a class="btn btn-primary" th:href="@{/events/new}">Create an event</a>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(events)}" class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Event ID</th>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Venue</th>
+                        <th>Guests</th>
+                        <th>Budget</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${events}">
+                        <td th:text="${event.eventId}">EV001</td>
+                        <td th:text="${event.eventName}">Sunrise Wedding</td>
+                        <td th:text="${#temporals.format(event.eventDate, 'dd MMM yyyy')}">16 Jan 2026</td>
+                        <td th:text="${event.venue}">The Grand Hall</td>
+                        <td th:text="${event.guestCount}">250</td>
+                        <td th:text="${'Rs. ' + #numbers.formatDecimal(event.estimatedBudget, 1, 'COMMA', 2, 'POINT')}">Rs. 250,000.00</td>
+                        <td>
+                            <span class="status-badge"
+                                  th:classappend="${event.status == 'UPCOMING' ? ' upcoming' : (event.status == 'COMPLETED' ? ' completed' : ' cancelled') }"
+                                  th:text="${event.status}">UPCOMING</span>
+                        </td>
+                        <td class="action-cell">
+                            <a class="table-link" th:href="@{/events/{id}(id=${event.eventId})}">View</a>
+                            <a class="table-link" th:href="@{/events/{id}/edit(id=${event.eventId})}">Edit</a>
+                            <form th:action="@{/events/{id}/delete(id=${event.eventId})}" method="post" onsubmit="return confirm('Delete this event?');">
+                                <button type="submit" class="link-button danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script th:src="@{/js/event.js}"></script>
+</body>
+</html>
