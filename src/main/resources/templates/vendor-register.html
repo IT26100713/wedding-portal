@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vendor Registration | Forever &amp; Always</title><link rel="stylesheet" th:href="@{/vendor/css/vendor-theme.css}"></head>
+<body>
+<div class="reg">
+    <aside class="reg-side" aria-label="Forever &amp; Always">
+        <img th:src="@{/vendor/img/wedding-bouquet.jpg}" src="../static/vendor/img/wedding-bouquet.jpg" alt="">
+        <a class="logo" th:href="@{/vendor/login}"><svg viewBox="0 0 48 40" class="orn" aria-hidden="true"><path d="M17 34C6 26 3 19 3 14a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 5-3 12-14 20z"/><path d="M31 34C20 26 17 19 17 14a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 5-3 12-14 20z"/></svg><b>Forever<br>&amp; Always</b><small>Vendor Portal</small></a>
+        <p class="say">Let's build beautiful<br>experiences<span class="script">together.</span></p>
+        <div class="orn-wrap" aria-hidden="true"><svg viewBox="0 0 120 160" class="orn" aria-hidden="true"><path d="M60 158C58 120 62 90 60 50"/><path d="M60 112C40 106 28 92 30 74c20 2 32 16 30 38z"/><path d="M60 92C80 86 94 72 92 54c-20 2-32 16-32 38z"/><path d="M60 50c-12-6-16-20-8-32 10 6 14 20 8 32z"/><path d="M60 50c12-6 16-20 8-32-10 6-14 20-8 32z"/><circle cx="60" cy="14" r="5"/></svg></div>
+    </aside>
+    <main class="reg-main">
+        <div class="reg-card rise">
+            <h1>Create Your Vendor Account</h1>
+            <p class="lead">Join our community of trusted wedding professionals</p>
+            <div th:if="${error}" class="alert alert-error" role="alert" th:text="${error}"></div>
+            <ol class="stepper" id="stepper" aria-hidden="true" style="list-style:none;padding:0"><li class="step on"><i>1</i>Business info</li><li class="step"><i>2</i>Contact info</li><li class="step"><i>3</i>Account setup</li></ol>
+            <form th:action="@{/vendor/register}" th:object="${form}" method="post" id="regForm">
+                <fieldset class="group" data-step="0"><legend>Business Information</legend>
+                    <div class="f"><label for="businessName">Business name</label><input id="businessName" th:field="*{businessName}" maxlength="100" placeholder="e.g. Atelier Botanique" autocomplete="organization" required type="text"></div>
+                    <div class="grid2">
+                        <div class="f"><label for="category">Business category</label><select id="category" name="category" required aria-describedby="catHint">
+                            <option value="" disabled selected>Select category</option>
+                            <option value="PHOTOGRAPHY" th:selected="${form.category == 'PHOTOGRAPHY'}">Photography &amp; Cinematography</option>
+                            <option value="VENUE" th:selected="${form.category == 'VENUE'}">Venue &amp; Heritage Estate</option>
+                            <option value="CATERING" th:selected="${form.category == 'CATERING'}">Catering &amp; Haute Gastronomy</option>
+                            <option value="DECORATION" th:selected="${form.category == 'DECORATION'}">Decoration &amp; Floral Art</option>
+                        </select><p class="hint" id="catHint">Rate unit: <b id="unitNow">choose a category</b></p></div>
+                        <div class="f"><label for="baseRate">Base rate (LKR)</label><input id="baseRate" name="baseRate" th:value="${form.baseRate > 0} ? ${#numbers.formatDecimal(form.baseRate, 1, 'NONE', 2, 'POINT')} : ''" placeholder="e.g. 150000" required type="number" step="0.01" min="0" aria-describedby="rateHint">
+                            <p class="hint" id="rateHint">Catering: per guest · Photography: per hour · Venue: flat per event · Decoration: per day</p></div>
+                    </div>
+                    <div class="f"><label for="description">Description</label><textarea id="description" th:field="*{description}" maxlength="500" rows="4" placeholder="Tell couples about your services..." required></textarea><p class="hint">Up to 500 characters.</p></div>
+                </fieldset>
+                <fieldset class="group" data-step="1"><legend>Contact Information</legend>
+                    <div class="grid2">
+                        <div class="f"><label for="ownerName">Owner name</label><input id="ownerName" th:field="*{ownerName}" maxlength="100" placeholder="e.g. Sophia Montgomery" autocomplete="name" required type="text"></div>
+                        <div class="f"><label for="city">City</label><input id="city" th:field="*{city}" maxlength="60" placeholder="Colombo / Galle / Kandy" autocomplete="address-level2" required type="text"></div>
+                        <div class="f"><label for="email">Email</label><input id="email" th:field="*{email}" placeholder="vendor@domain.com" autocomplete="email" required type="email"></div>
+                        <div class="f"><label for="phone">Phone</label><input id="phone" th:field="*{phone}" placeholder="+94 77 123 4567" autocomplete="tel" required type="tel"></div>
+                    </div>
+                </fieldset>
+                <fieldset class="group" data-step="2"><legend>Account Setup</legend>
+                    <div class="grid2">
+                        <div class="f"><label for="password">Password</label><input id="password" th:field="*{password}" minlength="6" autocomplete="new-password" required type="password"><p class="hint">Minimum 6 characters.</p></div>
+                        <div class="f"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" th:field="*{confirmPassword}" minlength="6" autocomplete="new-password" required type="password"></div>
+                    </div>
+                </fieldset>
+                <div class="reg-actions"><a class="btn btn-ghost" th:href="@{/vendor/login}">Cancel</a><button class="btn btn-primary" type="submit">Register</button></div>
+            </form>
+            <p class="foot">Already registered? <a th:href="@{/vendor/login}">Log in</a></p>
+        </div>
+    </main>
+</div>
+<script>
+    /* Visual only: stepper reflects which section is filled; never blocks submission. */
+    (function(){
+    var form=document.getElementById('regForm');if(!form)return;
+    var groups=form.querySelectorAll('fieldset[data-step]'),steps=document.querySelectorAll('#stepper .step'),
+    cat=document.getElementById('category'),unit=document.getElementById('unitNow'),
+    units={PHOTOGRAPHY:'per hour',VENUE:'flat per event',CATERING:'per guest',DECORATION:'per day'};
+    function update(){var firstOpen=-1;
+    groups.forEach(function(g,i){var ok=true;g.querySelectorAll('input,select,textarea').forEach(function(e){if(!e.value||e.value.trim()==='')ok=false;});
+    g._ok=ok;if(!ok&&firstOpen<0)firstOpen=i;});
+    steps.forEach(function(s,i){s.classList.toggle('done',groups[i]._ok);s.classList.toggle('on',i===firstOpen||(firstOpen<0&&i===steps.length-1));});
+    unit.textContent=units[cat.value]||'choose a category';}
+    form.addEventListener('input',update);form.addEventListener('change',update);update();
+    })();
+</script>
+</body></html>
