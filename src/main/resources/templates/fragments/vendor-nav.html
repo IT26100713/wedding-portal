@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><body>
+<header class="nav" th:fragment="vendorNav(active)">
+    <canvas id="sidebar-shader" aria-hidden="true"
+            style="position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
+    <div class="nav-in">
+        <a class="brand" th:href="@{/vendor/workboard}"><svg viewBox="0 0 48 40" class="orn" aria-hidden="true"><path d="M17 34C6 26 3 19 3 14a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 5-3 12-14 20z"/><path d="M31 34C20 26 17 19 17 14a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 5-3 12-14 20z"/></svg><span>Forever<br>&amp; Always<small>Vendor Portal</small></span></a>
+        <nav aria-label="Vendor navigation"><a th:href="@{/vendor/workboard}" th:classappend="${active == 'workboard'} ? 'on'" th:aria-current="${active == 'workboard'} ? 'page'"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Workboard</a>
+            <a th:href="@{/vendor/profile}" th:classappend="${active == 'profile'} ? 'on'" th:aria-current="${active == 'profile'} ? 'page'"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Profile</a>
+            <a th:href="@{/vendor/logout}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Logout</a></nav>
+    </div>
+    <script>
+        (function () {
+          'use strict';
+          const canvas = document.getElementById('sidebar-shader');
+          if (!canvas) return;
+          const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+          if (!gl) return; // falls back to the sidebar's own background colour
+
+          const vert = `attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }`;
+
+          const frag = `
+            precision highp float;
+            uniform vec2 u_res;
+            uniform float u_time;
+            uniform vec2 u_mouse;   // cursor position in shader space
+            uniform vec2 u_vel;     // smoothed cursor velocity
+            uniform float u_active; // 0 to 1, fades in/out on enter/leave
+
+            // Soft violet palette (deep plum -> orchid), kept dark enough for white text
+            const vec3 C1 = vec3(0.470, 0.220, 0.520); // mid violet
+            const vec3 C2 = vec3(0.300, 0.110, 0.360); // deep plum
+            const vec3 C3 = vec3(0.690, 0.400, 0.740); // soft orchid highlight
+
+            float hash(vec2 p){
+              p = fract(p * vec2(123.34, 456.21));
+              p += dot(p, p + 45.32);
+              return fract(p.x * p.y);
+            }
+            // quintic interpolation = very smooth, no visible grid creases
+            float noise(vec2 p){
+              vec2 i = floor(p), f = fract(p);
+              vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+              return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+                         mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+            }
+            // only two soft octaves: big flowing shapes, no fine marbling
+            float fbm(vec2 p){
+              float v = 0.0, a = 0.6;
+              for (int i = 0; i < 2; i++){
+                v += a * noise(p);
+                p = p * 1.8 + vec2(11.0, 7.0);
+                a *= 0.4;
+              }
+              return v / 0.84;
+            }
+            float field(vec2 p, float t){
+              p *= 1.5; // a little more variation down the tall sidebar, still large and soft
+              vec2 q = vec2(noise(p * 0.8 + vec2(0.0, t)), noise(p * 0.8 + vec2(5.2, 1.3) - t));
+              vec2 r = vec2(noise(p * 0.6 + 1.8 * q + vec2(1.7, 9.2) + 0.5 * t),
+                            noise(p * 0.6 + 1.8 * q + vec2(8.3, 2.8) - 0.4 * t));
+              return fbm(p * 0.7 + 1.4 * r);
+            }
+
+            void main(){
+              // Normalise by width so the pattern isn't stretched on a tall, narrow sidebar
+              vec2 p = (gl_FragCoord.xy - 0.5 * u_res) / u_res.x;
+              p *= 1.6;
+
+              // Cursor interaction
+              vec2 d = p - u_mouse;
+              float g = exp(-dot(d, d) * 5.0) * u_active; // soft circle around cursor
+              p -= u_vel * g * 8.0;                       // drag the liquid with the cursor
+              p += d * g * 0.15;                          // slight bulge under the cursor
+
+              float t = u_time * 0.08; // slow, calm drift
+
+              float f = field(p, t);
+
+              // broad, soft colour transitions (wide smoothsteps = no hard edges)
+              f = smoothstep(0.0, 1.0, f); // stretch the contrast so light and dark swaths both show
+              vec3 col = mix(C2, C1, smoothstep(0.00, 0.70, f));
+              col = mix(col, C3, smoothstep(0.35, 1.00, f) * 1.0);
+
+              // faint dither so the gradient never bands
+              col += (hash(gl_FragCoord.xy) - 0.5) / 160.0;
+
+              gl_FragColor = vec4(col, 1.0);
+            }`;
+
+          function compile(type, src){
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+          }
+          const prog = gl.createProgram();
+          gl.attachShader(prog, compile(gl.VERTEX_SHADER, vert));
+          gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, frag));
+          gl.linkProgram(prog);
+          if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+          gl.useProgram(prog);
+
+          const buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+          const loc = gl.getAttribLocation(prog, 'a_pos');
+          gl.enableVertexAttribArray(loc);
+          gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+          const uRes = gl.getUniformLocation(prog, 'u_res');
+          const uTime = gl.getUniformLocation(prog, 'u_time');
+          const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+          const uVel = gl.getUniformLocation(prog, 'u_vel');
+          const uActive = gl.getUniformLocation(prog, 'u_active');
+
+          // Size to the sidebar (not the window), at reduced resolution (the gradient is smooth, so it upscales cleanly)
+          const SCALE = 2.1;
+          function resize(){
+            const r = canvas.getBoundingClientRect();
+            canvas.width = Math.max(1, Math.floor(r.width * SCALE));
+            canvas.height = Math.max(1, Math.floor(r.height * SCALE));
+            gl.viewport(0, 0, canvas.width, canvas.height);
+          }
+          new ResizeObserver(resize).observe(canvas);
+          resize();
+
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          // Cursor tracking (listens on the sidebar so menu items don't block it)
+          const host = canvas.parentElement;
+          const target = { x: 0, y: 0, active: 0 };
+          const cur = { x: 0, y: 0 };
+          const vel = { x: 0, y: 0 };
+          let active = 0;
+
+          host.addEventListener('mousemove', function (e) {
+            const r = canvas.getBoundingClientRect();
+            const nx = (e.clientX - r.left) / r.width;
+            const ny = 1 - (e.clientY - r.top) / r.height;
+            // same space as the shader: x spans width, y scaled by aspect, then * 1.6
+            target.x = (nx - 0.5) * 1.6;
+            target.y = (ny - 0.5) * (r.height / r.width) * 1.6;
+            if (!target.active) { cur.x = target.x; cur.y = target.y; } // no jump on enter
+            target.active = 1;
+          });
+          host.addEventListener('mouseleave', function () { target.active = 0; });
+
+          const start = performance.now();
+          function frame(now){
+            // Ease cursor, derive velocity, fade strength in/out
+            const px = cur.x, py = cur.y;
+            cur.x += (target.x - cur.x) * 0.08;
+            cur.y += (target.y - cur.y) * 0.08;
+            vel.x += ((cur.x - px) - vel.x) * 0.2;
+            vel.y += ((cur.y - py) - vel.y) * 0.2;
+            active += (target.active - active) * 0.06;
+
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.uniform1f(uTime, reduced ? 20.0 : (now - start) / 1000 + 20.0);
+            gl.uniform2f(uMouse, cur.x, cur.y);
+            gl.uniform2f(uVel, reduced ? 0 : vel.x, reduced ? 0 : vel.y);
+            gl.uniform1f(uActive, reduced ? 0 : active);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        })();
+    </script>
+    <script>
+        /* liquid-glass buttons: specular highlight follows the pointer (skipped for reduced-motion users) */
+        (function(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+        document.querySelectorAll('.nav nav a').forEach(function(a){
+        a.addEventListener('pointermove',function(e){var r=a.getBoundingClientRect();a.style.setProperty('--mx',(e.clientX-r.left)+'px');a.style.setProperty('--my',(e.clientY-r.top)+'px');});
+        a.addEventListener('pointerleave',function(){a.style.removeProperty('--mx');a.style.removeProperty('--my');});});})();
+    </script>
+</header>
+</body></html>
