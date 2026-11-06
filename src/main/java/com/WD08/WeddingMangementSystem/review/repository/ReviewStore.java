@@ -1,7 +1,7 @@
-package com.WD08.WeddingMangementSystem.repository;
+package com.WD08.WeddingMangementSystem.review.repository;
 
-import com.WD08.WeddingMangementSystem.model.Review;
-import com.WD08.WeddingMangementSystem.model.ReviewStatus;
+import com.WD08.WeddingMangementSystem.review.model.Review;
+import com.WD08.WeddingMangementSystem.review.model.ReviewStatus;
 
 import java.util.List;
 

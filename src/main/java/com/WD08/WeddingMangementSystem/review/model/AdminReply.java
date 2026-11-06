@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.model;
+package com.WD08.WeddingMangementSystem.review.model;
 
 import java.time.LocalDate;
 
