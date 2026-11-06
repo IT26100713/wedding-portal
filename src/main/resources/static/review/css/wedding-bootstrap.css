@@ -1,0 +1,135 @@
+/* Wedding Planner theme on top of Bootstrap 5.3 (load this AFTER bootstrap.min.css) */
+:root {
+  --bs-primary: #6b2d4f;
+  --bs-primary-rgb: 107, 45, 79;
+  --bs-link-color: #6b2d4f;
+  --bs-link-color-rgb: 107, 45, 79;
+  --bs-link-hover-color: #4d1c38;
+  --bs-link-hover-color-rgb: 77, 28, 56;
+  --bs-body-font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --bs-body-color: #2b2430;
+  --bs-body-bg: #faf7fb;
+  --bs-border-color: #ebe4ed;
+  --bs-border-radius: .65rem;
+  --bs-border-radius-lg: 1rem;
+  --wd-plum: #6b2d4f;
+  --wd-plum-dark: #510f50;
+  --wd-plum-soft: #f5eaf1;
+  --wd-rose: #c9758f;
+  --wd-gold: #c98f2b;
+  --wd-gold-soft: #f7ecd4;
+  --wd-star-off: #e0d9e2;
+}
+body {
+  background:
+    radial-gradient(900px 420px at 100% -80px, #f3dfe9 0%, transparent 70%),
+    radial-gradient(700px 380px at -10% 120px, #f7ecd4 0%, transparent 65%),
+    var(--bs-body-bg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+h1, h2, h3, .modal-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  color: var(--wd-plum-dark);
+}
+
+/* Buttons: re-colour Bootstrap's variables */
+.btn { --bs-btn-border-radius: 99px; --bs-btn-font-weight: 600; }
+.btn-primary {
+  --bs-btn-bg: #6b2d4f; --bs-btn-border-color: #6b2d4f;
+  --bs-btn-hover-bg: #4d1c38; --bs-btn-hover-border-color: #4d1c38;
+  --bs-btn-active-bg: #4d1c38; --bs-btn-active-border-color: #4d1c38;
+  --bs-btn-disabled-bg: #6b2d4f; --bs-btn-disabled-border-color: #6b2d4f;
+  --bs-btn-focus-shadow-rgb: 107, 45, 79;
+}
+.btn-outline-primary {
+  --bs-btn-color: #6b2d4f; --bs-btn-border-color: #6b2d4f;
+  --bs-btn-hover-bg: #6b2d4f; --bs-btn-hover-border-color: #6b2d4f;
+  --bs-btn-active-bg: #6b2d4f; --bs-btn-active-border-color: #6b2d4f;
+  --bs-btn-focus-shadow-rgb: 107, 45, 79;
+}
+.btn-success {
+  --bs-btn-bg: #3f6b55; --bs-btn-border-color: #3f6b55;
+  --bs-btn-hover-bg: #315644; --bs-btn-hover-border-color: #315644;
+  --bs-btn-active-bg: #315644; --bs-btn-active-border-color: #315644;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--wd-plum);
+  box-shadow: 0 0 0 .25rem rgba(107, 45, 79, .15);
+}
+
+/* Navbar */
+.bg-wedding {
+  background: linear-gradient(100deg, #4d1c38, #883b64 60%, #ca3d7e);
+  border-bottom: 3px solid var(--wd-gold);
+  box-shadow: 0 4px 18px rgba(75, 30, 60, .25);
+}
+.navbar-brand { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.7rem; font-weight: 600; letter-spacing: .02em; }
+.navbar-brand::before { content: "\2766  "; color: var(--wd-gold); }
+.navbar-dark .navbar-nav .nav-link { color: #f4e1eb; border-radius: 99px; padding-inline: 1rem; }
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link.active { color: #fff; background: rgba(255, 255, 255, .16); }
+
+/* Page header */
+.page-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #fff 0%, var(--wd-plum-soft) 100%);
+  border: 1px solid var(--bs-border-color); border-radius: 1.25rem;
+  box-shadow: 0 .5rem 1.5rem rgba(75, 30, 60, .08);
+}
+.page-hero::before {
+  content: ""; position: absolute; right: -60px; top: -70px; width: 240px; height: 240px; border-radius: 50%;
+  border: 28px solid rgba(201, 143, 43, .13); box-shadow: 0 0 0 28px rgba(201, 117, 143, .10);
+}
+.page-hero > * { position: relative; z-index: 1; }
+
+/* Cards */
+.card { border-color: var(--bs-border-color); border-radius: 1rem; box-shadow: 0 .25rem 1rem rgba(75, 30, 60, .06); }
+.card-accent { border-top: 4px solid var(--wd-gold) !important; }
+
+/* Stars */
+.stars { letter-spacing: 3px; font-size: 1.2rem; white-space: nowrap; }
+.stars span { color: var(--wd-star-off); }
+.stars span.on { color: var(--wd-gold); text-shadow: 0 1px 6px rgba(201, 143, 43, .35); }
+
+/* Rating summary */
+.avg-number { font-family: "Cormorant Garamond", Georgia, serif; font-size: 5rem; font-weight: 600; line-height: .95; color: var(--wd-plum); }
+.progress { height: 10px; background: #f0eaf2; border-radius: 99px; }
+.progress-bar { background: linear-gradient(90deg, var(--wd-gold), #e3b457); }
+@media (min-width: 768px) { .avg-col { border-right: 1px solid var(--bs-border-color); } }
+
+/* Avatar and reply note */
+.avatar {
+  flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--wd-plum), var(--wd-rose)); color: #fff;
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.2rem; font-weight: 600;
+  box-shadow: 0 4px 10px rgba(107, 45, 79, .25);
+}
+.reply-note {
+  padding: .6rem 1rem; border-left: 4px solid var(--wd-gold); border-radius: 0 .6rem .6rem 0;
+  background: linear-gradient(90deg, var(--wd-gold-soft), #fffdf8);
+}
+.reply-note strong { color: #8a5d0a; }
+
+/* Status badges (built on Bootstrap's .badge) */
+.status-approved { background: #e4f0e9; color: #3f6b55; }
+.status-pending  { background: #faf0d9; color: #8a5d0a; }
+.status-hidden   { background: #f8e6e2; color: #a63a2b; }
+
+/* Star picker (radio inputs written 5 to 1 in the HTML) */
+.rating-stars { display: inline-flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; }
+.rating-stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.rating-stars label { font-size: 2.8rem; line-height: 1; color: var(--wd-star-off); cursor: pointer; transition: color .12s, transform .12s; }
+.rating-stars label:hover { transform: scale(1.12); }
+.rating-stars input:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label { color: var(--wd-gold); text-shadow: 0 2px 8px rgba(201, 143, 43, .4); }
+.rating-stars input:focus-visible + label { outline: 3px solid var(--wd-gold); outline-offset: 2px; border-radius: 6px; }
+
+/* Admin table */
+.table > :not(caption) > * > * { padding: .85rem 1rem; }
+.table thead th { background: var(--wd-plum-soft); color: var(--wd-plum-dark); font-size: .85rem; white-space: nowrap; }
+.comment-cell { min-width: 280px; max-width: 400px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
