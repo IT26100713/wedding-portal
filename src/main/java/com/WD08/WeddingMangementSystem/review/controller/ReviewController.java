@@ -72,7 +72,7 @@ public class ReviewController {
     @GetMapping("/reviews/{id}")
     public Map<String, Object> getReview(@PathVariable("id") int id) {
         Map<String, Object> answer = success(null);
-        answer.put("com/WD08/WeddingMangementSystem/review", toJson(service.findReview(id), ViewerRole.CUSTOMER));
+        answer.put("review", toJson(service.findReview(id), ViewerRole.CUSTOMER));
         return answer;
     }
 
@@ -84,7 +84,7 @@ public class ReviewController {
         Review saved = service.addReview(toInt(body.getCustomerId()), toInt(body.getPackageId()),
                 toInt(body.getBookingId()), toInt(body.getRating()), body.getComment(), bookingComplete);
         Map<String, Object> answer = success("Thank you! Your review was sent and will appear after the team approves it.");
-        answer.put("com/WD08/WeddingMangementSystem/review", toJson(saved, ViewerRole.CUSTOMER));
+        answer.put("review", toJson(saved, ViewerRole.CUSTOMER));
         return ResponseEntity.status(HttpStatus.CREATED).body(answer);
     }
 

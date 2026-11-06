@@ -20,7 +20,7 @@ public class ReviewApiSecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain reviewApiSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/api/**", "/com/WD08/WeddingMangementSystem/review/**")
+        http.securityMatcher("/api/**", "/review/**")
             .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
             .csrf(csrf -> csrf.disable());
         return http.build();

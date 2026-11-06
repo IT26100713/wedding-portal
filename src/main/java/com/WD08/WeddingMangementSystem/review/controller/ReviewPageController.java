@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReviewPageController {
 
-    @GetMapping({"/com/WD08/WeddingMangementSystem/review", "/com/WD08/WeddingMangementSystem/review/"})
+    @GetMapping({"/review", "/review/"})
     public String home() { return "review-home"; }
 
-    @GetMapping("/com/WD08/WeddingMangementSystem/review/packages")
+    @GetMapping("/review/packages")
     public String packageReviews() { return "review-packages"; }
 
-    @GetMapping("/com/WD08/WeddingMangementSystem/review/write")
+    @GetMapping("/review/write")
     public String write() { return "review-write"; }
 
-    @GetMapping("/com/WD08/WeddingMangementSystem/review/mine")
+    @GetMapping("/review/mine")
     public String myReviews() { return "review-mine"; }
 
-    @GetMapping("/com/WD08/WeddingMangementSystem/review/edit")
+    @GetMapping("/review/edit")
     public String edit() { return "review-edit"; }
 
-    @GetMapping("/com/WD08/WeddingMangementSystem/review/admin")
+    @GetMapping("/review/admin")
     public String admin() { return "review-admin"; }
 }
