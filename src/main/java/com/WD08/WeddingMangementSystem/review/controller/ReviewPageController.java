@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.controller;
+package com.WD08.WeddingMangementSystem.review.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReviewPageController {
 
-    @GetMapping({"/review", "/review/"})
+    @GetMapping({"/com/WD08/WeddingMangementSystem/review", "/com/WD08/WeddingMangementSystem/review/"})
     public String home() { return "review-home"; }
 
-    @GetMapping("/review/packages")
+    @GetMapping("/com/WD08/WeddingMangementSystem/review/packages")
     public String packageReviews() { return "review-packages"; }
 
-    @GetMapping("/review/write")
+    @GetMapping("/com/WD08/WeddingMangementSystem/review/write")
     public String write() { return "review-write"; }
 
-    @GetMapping("/review/mine")
+    @GetMapping("/com/WD08/WeddingMangementSystem/review/mine")
     public String myReviews() { return "review-mine"; }
 
-    @GetMapping("/review/edit")
+    @GetMapping("/com/WD08/WeddingMangementSystem/review/edit")
     public String edit() { return "review-edit"; }
 
-    @GetMapping("/review/admin")
+    @GetMapping("/com/WD08/WeddingMangementSystem/review/admin")
     public String admin() { return "review-admin"; }
 }

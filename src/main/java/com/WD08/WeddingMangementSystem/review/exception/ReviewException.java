@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.exception;
+package com.WD08.WeddingMangementSystem.review.exception;
 
 import org.springframework.http.HttpStatus;
 

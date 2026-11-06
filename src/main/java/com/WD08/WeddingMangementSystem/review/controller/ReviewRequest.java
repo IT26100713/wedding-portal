@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.controller;
+package com.WD08.WeddingMangementSystem.review.controller;
 
 /**
  * The JSON the front end sends, for example {"customerId":"12","rating":"5","comment":"..."}.

@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.config;
+package com.WD08.WeddingMangementSystem.review.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class ReviewApiSecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain reviewApiSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/api/**", "/review/**")
+        http.securityMatcher("/api/**", "/com/WD08/WeddingMangementSystem/review/**")
             .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
             .csrf(csrf -> csrf.disable());
         return http.build();
