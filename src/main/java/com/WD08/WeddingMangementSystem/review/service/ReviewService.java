@@ -1,11 +1,11 @@
-package com.WD08.WeddingMangementSystem.service;
+package com.WD08.WeddingMangementSystem.review.service;
 
-import com.WD08.WeddingMangementSystem.exception.ReviewException;
-import com.WD08.WeddingMangementSystem.model.PublicReview;
-import com.WD08.WeddingMangementSystem.model.Review;
-import com.WD08.WeddingMangementSystem.model.ReviewStatus;
-import com.WD08.WeddingMangementSystem.model.VerifiedReview;
-import com.WD08.WeddingMangementSystem.repository.ReviewStore;
+import com.WD08.WeddingMangementSystem.review.exception.ReviewException;
+import com.WD08.WeddingMangementSystem.review.model.PublicReview;
+import com.WD08.WeddingMangementSystem.review.model.Review;
+import com.WD08.WeddingMangementSystem.review.model.ReviewStatus;
+import com.WD08.WeddingMangementSystem.review.model.VerifiedReview;
+import com.WD08.WeddingMangementSystem.review.repository.ReviewStore;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

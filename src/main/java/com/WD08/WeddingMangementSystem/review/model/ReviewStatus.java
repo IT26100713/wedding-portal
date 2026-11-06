@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.model;
+package com.WD08.WeddingMangementSystem.review.model;
 
 /** The three states of a review. */
 public enum ReviewStatus {

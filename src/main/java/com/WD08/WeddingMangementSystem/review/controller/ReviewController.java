@@ -1,9 +1,9 @@
-package com.WD08.WeddingMangementSystem.controller;
+package com.WD08.WeddingMangementSystem.review.controller;
 
-import com.WD08.WeddingMangementSystem.exception.ReviewException;
-import com.WD08.WeddingMangementSystem.model.Review;
-import com.WD08.WeddingMangementSystem.model.ViewerRole;
-import com.WD08.WeddingMangementSystem.service.ReviewService;
+import com.WD08.WeddingMangementSystem.review.exception.ReviewException;
+import com.WD08.WeddingMangementSystem.review.model.Review;
+import com.WD08.WeddingMangementSystem.review.model.ViewerRole;
+import com.WD08.WeddingMangementSystem.review.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -72,7 +72,7 @@ public class ReviewController {
     @GetMapping("/reviews/{id}")
     public Map<String, Object> getReview(@PathVariable("id") int id) {
         Map<String, Object> answer = success(null);
-        answer.put("review", toJson(service.findReview(id), ViewerRole.CUSTOMER));
+        answer.put("com/WD08/WeddingMangementSystem/review", toJson(service.findReview(id), ViewerRole.CUSTOMER));
         return answer;
     }
 
@@ -84,7 +84,7 @@ public class ReviewController {
         Review saved = service.addReview(toInt(body.getCustomerId()), toInt(body.getPackageId()),
                 toInt(body.getBookingId()), toInt(body.getRating()), body.getComment(), bookingComplete);
         Map<String, Object> answer = success("Thank you! Your review was sent and will appear after the team approves it.");
-        answer.put("review", toJson(saved, ViewerRole.CUSTOMER));
+        answer.put("com/WD08/WeddingMangementSystem/review", toJson(saved, ViewerRole.CUSTOMER));
         return ResponseEntity.status(HttpStatus.CREATED).body(answer);
     }
 
