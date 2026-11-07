@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Dashboard</title>
+    <link rel="stylesheet" th:href="@{/event/css/event-style.css}">
+</head>
+<body class="dashboard-page">
+<div class="dashboard-shell">
+    <header class="dashboard-header">
+        <a class="dashboard-brand" th:href="@{/events/dashboard}" aria-label="Forever and Always dashboard">
+            <span class="dashboard-brand-mark" aria-hidden="true">&#x2726;</span>
+            <span>Forever <em>&amp;</em> Always</span>
+        </a>
+        <nav th:replace="~{event/fragments/event-nav :: navigation('dashboard', false)}"></nav>
+    </header>
+
+    <main class="dashboard-content">
+        <section class="dashboard-hero" aria-labelledby="dashboard-title">
+            <div class="dashboard-hero-copy">
+                <p class="eyebrow">Your special day</p>
+                <h1 id="dashboard-title">Wedding Overview</h1>
+                <p>Keep track of your wedding plans in one place.</p>
+            </div>
+            <a class="btn btn-primary dashboard-hero-action" th:href="@{/events/new}">+ Plan an Event</a>
+        </section>
+
+        <div th:if="${successMessage}" class="flash-message success" th:text="${successMessage}"></div>
+
+        <section class="stats-grid dashboard-stats" aria-label="Event summary">
+            <a class="dashboard-stat-link" th:href="@{/events}" aria-label="View all events">
+                <article class="stat-card accent-rose">
+                    <span class="dashboard-stat-icon" aria-hidden="true">&#x2661;</span>
+                    <span class="stat-label">Total Events</span>
+                    <strong class="stat-value" th:text="${totalEvents}">0</strong>
+                    <span class="dashboard-stat-note">Planned together</span>
+                </article>
+            </a>
+            <a class="dashboard-stat-link" th:href="@{/events(status='UPCOMING')}" aria-label="View upcoming events">
+                <article class="stat-card accent-lavender">
+                    <span class="dashboard-stat-icon" aria-hidden="true">&#x2727;</span>
+                    <span class="stat-label">Upcoming</span>
+                    <strong class="stat-value" th:text="${upcomingEvents}">0</strong>
+                    <span class="dashboard-stat-note">Still to celebrate</span>
+                </article>
+            </a>
+            <a class="dashboard-stat-link" th:href="@{/events(status='COMPLETED')}" aria-label="View completed events">
+                <article class="stat-card accent-gold">
+                    <span class="dashboard-stat-icon" aria-hidden="true">&#x2726;</span>
+                    <span class="stat-label">Completed</span>
+                    <strong class="stat-value" th:text="${completedEvents}">0</strong>
+                    <span class="dashboard-stat-note">Beautiful memories</span>
+                </article>
+            </a>
+            <a class="dashboard-stat-link" th:href="@{/events(status='CANCELLED')}" aria-label="View cancelled events">
+                <article class="stat-card accent-mint">
+                    <span class="dashboard-stat-icon" aria-hidden="true">&#x2713;</span>
+                    <span class="stat-label">Cancelled</span>
+                    <strong class="stat-value" th:text="${cancelledEvents}">0</strong>
+                    <span class="dashboard-stat-note">Updated plans</span>
+                </article>
+            </a>
+        </section>
+
+        <section class="panel dashboard-events">
+            <div class="panel-header">
+                <div>
+                    <p class="eyebrow">The details</p>
+                    <h2>Recent Events</h2>
+                </div>
+                <a class="text-link" th:href="@{/events}">See all events <span aria-hidden="true">&rarr;</span></a>
+            </div>
+
+            <div th:if="${#lists.isEmpty(recentEvents)}" class="empty-state">
+                <p>No events found yet. Add the first event to start planning.</p>
+                <a class="btn btn-primary" th:href="@{/events/new}">Plan your first event</a>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(recentEvents)}" class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Event ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${recentEvents}">
+                        <td><a class="link" th:href="@{/events/{id}(id=${event.eventId})}" th:text="${event.eventId}">EV001</a></td>
+                        <td th:text="${event.eventName}">Wedding</td>
+                        <td th:text="${#temporals.format(event.eventDate, 'dd MMM yyyy')}">10 Jan 2026</td>
+                        <td>
+                            <span class="status-badge"
+                                  th:classappend="${event.status == 'UPCOMING' ? ' upcoming' : (event.status == 'COMPLETED' ? ' completed' : ' cancelled') }"
+                                  th:text="${event.status}">UPCOMING</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script th:src="@{/event/js/event.js}"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<nav xmlns:th="http://www.thymeleaf.org"
+     th:fragment="navigation(activePage, sidebar)"
+     th:class="${sidebar ? 'nav-menu' : 'dashboard-nav'}"
+     aria-label="Planning Tools">
+    <a th:class="${(sidebar ? 'nav-item ' : '') + (activePage == 'dashboard' ? 'active' : '')}"
+       th:attr="aria-current=${activePage == 'dashboard' ? 'page' : null}"
+       th:href="@{/events/dashboard}">Dashboard</a>
+    <a th:class="${(sidebar ? 'nav-item ' : '') + (activePage == 'events' ? 'active' : '')}"
+       th:attr="aria-current=${activePage == 'events' ? 'page' : null}"
+       th:href="@{/events}">All Events</a>
+    <a th:class="${(sidebar ? 'nav-item ' : '') + (activePage == 'add' ? 'active' : '')}"
+       th:attr="aria-current=${activePage == 'add' ? 'page' : null}"
+       th:href="@{/events/new}">Add Event</a>
+</nav>
