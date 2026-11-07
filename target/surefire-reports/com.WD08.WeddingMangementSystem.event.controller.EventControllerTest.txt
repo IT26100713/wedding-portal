@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.WD08.WeddingMangementSystem.event.controller.EventControllerTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.406 s -- in com.WD08.WeddingMangementSystem.event.controller.EventControllerTest

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} + ' | Wedding Planner'">Create Event</title>
+    <link rel="stylesheet" th:href="@{/event/css/event-style.css}">
+</head>
+<body class="dashboard-page events-page">
+<div class="dashboard-shell">
+    <header class="dashboard-header">
+        <a class="dashboard-brand" th:href="@{/events/dashboard}" aria-label="Forever and Always dashboard">
+            <span class="dashboard-brand-mark" aria-hidden="true">&#x2726;</span>
+            <span>Forever <em>&amp;</em> Always</span>
+        </a>
+        <nav th:replace="~{fragments/event-nav :: navigation('add', false)}"></nav>
+    </header>
+
+    <main class="dashboard-content events-content">
+        <section class="dashboard-hero" aria-labelledby="event-form-title">
+            <div class="dashboard-hero-copy">
+                <p class="eyebrow">Make it memorable</p>
+                <h1 id="event-form-title" th:text="${pageTitle}">Create Event</h1>
+                <p>Gather all the important details for your special day.</p>
+            </div>
+            <a class="btn dashboard-hero-action event-back-action" th:href="@{/events}">Back to events</a>
+        </section>
+
+        <section class="panel dashboard-events form-panel event-form-panel" aria-labelledby="event-details-title">
+            <div class="panel-header event-form-heading">
+                <div>
+                    <p class="eyebrow">The details</p>
+                    <h2 id="event-details-title">Event information</h2>
+                    <p class="event-form-intro">Fill in the details below to keep your plans organized.</p>
+                </div>
+            </div>
+            <form th:action="${eventId != null ? '/events/' + eventId + '/edit' : '/events'}"
+                  method="post" th:object="${eventForm}" class="event-form">
+
+                <div class="form-grid">
+                    <label class="field">
+                        <span>Event Name</span>
+                        <input type="text" th:field="*{eventName}" placeholder="Sunrise Wedding">
+                        <small class="error" th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Event Date</span>
+                        <input type="date" th:field="*{eventDate}">
+                        <small class="error" th:if="${#fields.hasErrors('eventDate')}" th:errors="*{eventDate}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Start Time</span>
+                        <input type="time" th:field="*{startTime}">
+                        <small class="error" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Venue</span>
+                        <input type="text" th:field="*{venue}" placeholder="The Grand Hall">
+                        <small class="error" th:if="${#fields.hasErrors('venue')}" th:errors="*{venue}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Expected Guest Count</span>
+                        <input type="number" min="1" th:field="*{guestCount}" placeholder="250">
+                        <small class="error" th:if="${#fields.hasErrors('guestCount')}" th:errors="*{guestCount}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Estimated Budget</span>
+                        <input type="number" step="0.01" min="0" th:field="*{estimatedBudget}" placeholder="150000.00">
+                        <small class="error" th:if="${#fields.hasErrors('estimatedBudget')}" th:errors="*{estimatedBudget}">Required</small>
+                    </label>
+
+                    <label class="field">
+                        <span>Status</span>
+                        <select th:field="*{status}">
+                            <option value="UPCOMING">Upcoming</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <small class="error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Required</small>
+                    </label>
+                </div>
+
+                <label class="field">
+                    <span>Description</span>
+                    <textarea th:field="*{description}" rows="5" placeholder="Tell us about the event details, theme, or special notes..."></textarea>
+                    <small class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Required</small>
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" th:text="${eventId != null ? 'Update Event' : 'Save Event'}">Save Event</button>
+                    <a class="btn btn-secondary" th:href="@{/events}">Cancel</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+<script th:src="@{/event/js/event.js}"></script>
+</body>
+</html>

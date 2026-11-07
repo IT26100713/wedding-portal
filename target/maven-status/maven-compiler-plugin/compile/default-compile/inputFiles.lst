@@ -1,7 +1,9 @@
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\controller\EventController.java
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\controller\GlobalExceptionHandler.java
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\dto\EventForm.java
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\entity\Event.java
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\repository\EventRepository.java
-C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\service\EventService.java
 C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\oop\wedding\WeddingPlanningApplication.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\config\EventSchemaInitializer.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\config\EventSecurityConfig.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\controller\EventController.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\controller\EventExceptionHandler.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\dto\EventForm.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\model\Event.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\repository\EventRepository.java
+C:\Users\CTMS\Music\project\OOP_Project\src\main\java\com\WD08\WeddingMangementSystem\event\service\EventService.java
