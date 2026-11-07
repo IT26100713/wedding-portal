@@ -50,3 +50,16 @@ Event Date   : 2026-11-22
 Status       : Confirmed
 Total (Rs.)  : 672900.0
 
+============================
+Bride        : sfsdf
+Groom        : ccxc
+Phone        : 456
+Photographer : Lens Studio
+Caterer      : Spice Garden
+Decorator    : Bloom Decor
+Venue        : Mount Lavinia Hotel
+Guests       : 123
+Event Date   : 2026-11-11
+Status       : Confirmed
+Total (Rs.)  : 812500.0
+

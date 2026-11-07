@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/wedding.css}" href="/css/wedding.css" rel="stylesheet">
-    <link th:href="@{/css/booking-cards.css}" href="/css/booking-cards.css" rel="stylesheet">
-    <link th:href="@{/css/my-bookings.css}" href="/css/my-bookings.css" rel="stylesheet">
-    <link th:href="@{/css/romantic-theme.css}" href="/css/romantic-theme.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/booking/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/booking/css/wedding.css}" href="/booking/css/wedding.css" rel="stylesheet">
+    <link th:href="@{/booking/css/booking-cards.css}" href="/booking/css/booking-cards.css" rel="stylesheet">
+    <link th:href="@{/booking/css/my-bookings.css}" href="/booking/css/my-bookings.css" rel="stylesheet">
+    <link th:href="@{/booking/css/romantic-theme.css}" href="/booking/css/romantic-theme.css" rel="stylesheet">
     <title>My Bookings</title>
 </head>
 <body class="booking-page my-bookings-page">
@@ -66,9 +66,9 @@
                     <li>Decorator: <strong th:text="${b.decorator} ?: 'Not needed'"></strong></li>
                     <li>Venue: <strong th:text="${b.venue} ?: 'Not needed'"></strong></li>
                 </ul>
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 booking-footer">
                     <div class="fs-5">Total: Rs. <span th:text="${#numbers.formatDecimal(totals[b.id], 1, 'COMMA', 2, 'POINT')}"></span></div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 booking-actions">
                         <a class="btn btn-outline-primary btn-sm" th:href="@{/bookings/{id}/edit(id=${b.id}, phone=${phone})}">Update</a>
                         <form method="post" th:action="@{/bookings/{id}/cancel(id=${b.id}, phone=${phone})}"
                               onsubmit="return confirm('Cancel this booking? It will be deleted.');">
