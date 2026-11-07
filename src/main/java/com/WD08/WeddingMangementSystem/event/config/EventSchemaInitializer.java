@@ -1,11 +1,13 @@
 package com.WD08.WeddingMangementSystem.event.config;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 
 @Component
+@Profile("!mysql")
 public class EventSchemaInitializer {
 
     private final JdbcTemplate jdbcTemplate;

@@ -38,7 +38,7 @@ class EventControllerTest {
         when(eventService.getRecentEvents(5)).thenReturn(List.of());
         ExtendedModelMap model = new ExtendedModelMap();
 
-        assertThat(controller.dashboard(model)).isEqualTo("event-dashboard");
+        assertThat(controller.dashboard(model)).isEqualTo("event/dashboard");
         assertThat(model.get("totalEvents")).isEqualTo(3L);
         assertThat(model.get("upcomingEvents")).isEqualTo(2L);
     }
@@ -48,7 +48,7 @@ class EventControllerTest {
         when(eventService.findEvents("ceremony", "UPCOMING")).thenReturn(List.of());
         ExtendedModelMap model = new ExtendedModelMap();
 
-        assertThat(controller.listEvents("ceremony", "UPCOMING", model)).isEqualTo("event-list");
+        assertThat(controller.listEvents("ceremony", "UPCOMING", model)).isEqualTo("event/events");
         assertThat(model.get("search")).isEqualTo("ceremony");
         assertThat(model.get("status")).isEqualTo("UPCOMING");
         verify(eventService).findEvents("ceremony", "UPCOMING");
@@ -62,7 +62,7 @@ class EventControllerTest {
         ExtendedModelMap model = new ExtendedModelMap();
 
         assertThat(controller.createEvent(form, errors, new RedirectAttributesModelMap(), model))
-                .isEqualTo("event-form");
+                .isEqualTo("event/form");
         assertThat(model.get("pageTitle")).isEqualTo("Create Event");
         verify(eventService, never()).createEvent(form);
     }
@@ -103,11 +103,11 @@ class EventControllerTest {
         Event event = event("EV002");
         when(eventService.getEventById("EV002")).thenReturn(Optional.of(event));
         ExtendedModelMap detailsModel = new ExtendedModelMap();
-        assertThat(controller.getEvent("EV002", detailsModel)).isEqualTo("event-details");
+        assertThat(controller.getEvent("EV002", detailsModel)).isEqualTo("event/details");
         assertThat(detailsModel.get("event")).isSameAs(event);
 
         ExtendedModelMap editModel = new ExtendedModelMap();
-        assertThat(controller.showEditEventForm("EV002", editModel)).isEqualTo("event-form");
+        assertThat(controller.showEditEventForm("EV002", editModel)).isEqualTo("event/form");
         assertThat(editModel.get("eventId")).isEqualTo("EV002");
 
         RedirectAttributesModelMap redirect = new RedirectAttributesModelMap();
@@ -117,12 +117,12 @@ class EventControllerTest {
 
     @Test
     void eventTemplatesAndAssetsArePackagedAtTheirExpectedPaths() {
-        assertThat(new ClassPathResource("templates/event-dashboard.html").exists()).isTrue();
-        assertThat(new ClassPathResource("templates/event-list.html").exists()).isTrue();
-        assertThat(new ClassPathResource("templates/event-form.html").exists()).isTrue();
-        assertThat(new ClassPathResource("templates/event-details.html").exists()).isTrue();
-        assertThat(new ClassPathResource("templates/event-error.html").exists()).isTrue();
-        assertThat(new ClassPathResource("templates/fragments/event-nav.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/dashboard.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/events.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/form.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/details.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/error.html").exists()).isTrue();
+        assertThat(new ClassPathResource("templates/event/fragments/event-nav.html").exists()).isTrue();
         assertThat(new ClassPathResource("static/event/css/event-style.css").exists()).isTrue();
         assertThat(new ClassPathResource("static/event/js/event.js").exists()).isTrue();
     }

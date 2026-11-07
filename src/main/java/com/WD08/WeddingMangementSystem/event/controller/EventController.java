@@ -31,7 +31,7 @@ public class EventController {
         model.addAttribute("completedEvents", eventService.countEventStatus("COMPLETED"));
         model.addAttribute("cancelledEvents", eventService.countEventStatus("CANCELLED"));
         model.addAttribute("recentEvents", eventService.getRecentEvents(5));
-        return "event-dashboard";
+        return "event/dashboard";
     }
 
     @GetMapping
@@ -44,14 +44,14 @@ public class EventController {
         model.addAttribute("events", events);
         model.addAttribute("search", search);
         model.addAttribute("status", status);
-        return "event-list";
+        return "event/events";
     }
 
     @GetMapping("/new")
     public String showNewEventForm(Model model) {
         model.addAttribute("eventForm", new EventForm());
         model.addAttribute("pageTitle", "Create Event");
-        return "event-form";
+        return "event/form";
     }
 
     @PostMapping
@@ -63,7 +63,7 @@ public class EventController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageTitle", "Create Event");
-            return "event-form";
+            return "event/form";
         }
 
         Event savedEvent = eventService.createEvent(eventForm);
@@ -76,7 +76,7 @@ public class EventController {
         Event event = eventService.getEventById(eventId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found: " + eventId));
         model.addAttribute("event", event);
-        return "event-details";
+        return "event/details";
     }
 
     @GetMapping("/{eventId}/edit")
@@ -87,7 +87,7 @@ public class EventController {
         model.addAttribute("eventForm", EventForm.fromEntity(event));
         model.addAttribute("eventId", eventId);
         model.addAttribute("pageTitle", "Edit Event");
-        return "event-form";
+        return "event/form";
     }
 
     @PostMapping("/{eventId}/edit")
@@ -101,7 +101,7 @@ public class EventController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageTitle", "Edit Event");
             model.addAttribute("eventId", eventId);
-            return "event-form";
+            return "event/form";
         }
 
         Event updatedEvent = eventService.updateEvent(eventId, eventForm);
