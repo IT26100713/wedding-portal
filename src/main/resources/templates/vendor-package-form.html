@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Package | Forever &amp; Always</title><link rel="stylesheet" th:href="@{/vendor/css/vendor-theme.css}"></head>
+<body class="app">
+<div th:replace="~{fragments/vendor-nav :: vendorNav('workboard')}"></div>
+<main class="wrap"><div class="pk rise">
+    <aside class="pk-aside">
+        <h1 th:text="${heading}">Package</h1>
+        <p class="sub">Create &amp; manage a bespoke service tier</p>
+        <div class="tip"><b>Pro tip</b>A clear name and a specific description help couples compare your packages at a glance.</div>
+        <div class="orn-wrap" aria-hidden="true"><svg viewBox="0 0 120 160" class="orn" aria-hidden="true"><path d="M60 158C58 120 62 90 60 50"/><path d="M60 112C40 106 28 92 30 74c20 2 32 16 30 38z"/><path d="M60 92C80 86 94 72 92 54c-20 2-32 16-32 38z"/><path d="M60 50c-12-6-16-20-8-32 10 6 14 20 8 32z"/><path d="M60 50c12-6 16-20 8-32-10 6-14 20-8 32z"/><circle cx="60" cy="14" r="5"/></svg></div>
+    </aside>
+    <div class="pk-form">
+        <div class="pk-head"><h2>Package details</h2><a th:href="@{/vendor/workboard}" class="close" aria-label="Close form"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></div>
+        <div th:if="${error}" class="alert alert-error" role="alert" th:text="${error}"></div>
+        <form th:action="@{${formAction}}" th:object="${pkg}" method="post">
+            <div class="f"><label for="name">Package name</label><input id="name" th:field="*{name}" maxlength="100" placeholder="e.g. Imperial Heritage Full Day Cinematic" required type="text" aria-describedby="nameHint"><p class="hint" id="nameHint">Up to 100 characters.</p></div>
+            <div class="f"><label for="description">Description <span class="counter" id="descCount" aria-hidden="true">0 / 300</span></label><textarea id="description" th:field="*{description}" maxlength="300" rows="4" placeholder="Detail the package deliverables..."></textarea></div>
+            <div class="f"><label for="price">Price (LKR)</label>
+                <div class="price-field"><span aria-hidden="true">LKR</span><input id="price" name="price" th:value="${pkg.price > 0} ? ${#numbers.formatDecimal(pkg.price, 1, 'NONE', 2, 'POINT')} : ''" type="number" step="0.01" min="0.01" placeholder="e.g. 450000" required inputmode="decimal" aria-describedby="priceHint"></div>
+                <p class="hint" id="priceHint">Enter a plain amount in Rupees, for example 450000 or 450000.50.</p></div>
+            <div class="actions"><a th:href="@{/vendor/workboard}" class="btn btn-ghost">Cancel</a><button class="btn btn-primary" type="submit">Save</button></div>
+        </form>
+    </div>
+</div></main>
+<script>
+    (function(){var d=document.getElementById('description'),c=document.getElementById('descCount');if(!d||!c)return;
+    function u(){c.textContent=d.value.length+' / 300';}d.addEventListener('input',u);u();})();
+</script>
+</body></html>

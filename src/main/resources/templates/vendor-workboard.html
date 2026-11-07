@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vendor Workboard | Forever &amp; Always</title><link rel="stylesheet" th:href="@{/vendor/css/vendor-theme.css}"></head>
+<body class="app">
+<div th:replace="~{fragments/vendor-nav :: vendorNav('workboard')}"></div>
+<main class="wrap">
+    <div th:if="${success}" class="alert alert-ok" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" role="alert" th:text="${error}"></div>
+    <div class="top rise">
+        <div><h1>Welcome, <span th:text="${vendor.ownerName}">Owner</span></h1><p class="sub">Manage your service packages, pricing, and client bookings</p></div>
+        <div class="chip" th:if="${vendor.ownerName != null and !#strings.isEmpty(vendor.ownerName)}"><span class="av" aria-hidden="true" th:text="${#strings.toUpperCase(#strings.substring(vendor.ownerName,0,1))}">A</span><span><b th:text="${vendor.ownerName}">Owner</b><small th:text="${vendor.category}">CATEGORY</small></span></div>
+    </div>
+
+    <section class="stats4 rise-2" aria-label="Summary">
+        <div class="stat"><div><small>My packages</small><b th:text="${#lists.size(packages)}">0</b></div><span class="ib" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span></div>
+        <div class="stat"><div><small>Category</small><b class="txt" th:text="${vendor.category}">CATEGORY</b></div><span class="ib" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="M20 12 12 20 4 12V4h8z"/><circle cx="8" cy="8" r="1.2"/></svg></span></div>
+        <div class="stat"><div><small>Pricing unit</small><b class="txt" th:text="${vendor.pricingLabel}">per unit</b></div><span class="ib" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.7-1 1.5-2.5 1.8-2.5.8-2.5 1.8 1 1.7 2.5 1.7 2.5-.7 2.5-1.7"/></svg></span></div>
+        <div class="stat"><div><small>Booking requests</small><span class="tag">Future integration</span><p class="note">Will appear here once the Booking component is connected.</p></div><span class="ib" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span></div>
+    </section>
+
+    <section class="cta rise-3" aria-label="Add a package">
+        <div><h2>Create Your Next Package</h2><p class="sub">Add a new package and attract more couples</p></div>
+        <div class="orn-wrap" aria-hidden="true"><svg viewBox="0 0 120 160" class="orn" aria-hidden="true"><path d="M60 158C58 120 62 90 60 50"/><path d="M60 112C40 106 28 92 30 74c20 2 32 16 30 38z"/><path d="M60 92C80 86 94 72 92 54c-20 2-32 16-32 38z"/><path d="M60 50c-12-6-16-20-8-32 10 6 14 20 8 32z"/><path d="M60 50c12-6 16-20 8-32-10 6-14 20-8 32z"/><circle cx="60" cy="14" r="5"/></svg></div>
+        <a th:href="@{/vendor/packages/new}" class="btn btn-primary"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add package</a>
+    </section>
+
+    <section class="sheet" id="packages" aria-labelledby="pkgTitle">
+        <div class="sheet-head"><h2 id="pkgTitle">My service packages</h2></div>
+        <div class="tbl"><table>
+            <thead><tr><th scope="col">Package</th><th scope="col">Description</th><th scope="col" class="r">Price (LKR)</th><th scope="col" class="r">Actions</th></tr></thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(packages)}"><td colspan="4" class="empty">No packages yet. Click "Add package" to create one.</td></tr>
+            <tr th:each="p : ${packages}">
+                <td data-label="Package"><b th:text="${p.name}">Name</b></td>
+                <td class="desc" data-label="Description" th:text="${p.description}">Description</td>
+                <td class="r price" data-label="Price" th:text="${#numbers.formatDecimal(p.price, 1, 'COMMA', 2, 'POINT')}">0.00</td>
+                <td class="r acts"><a th:href="@{/vendor/packages/{id}/edit(id=${p.id})}" class="btn btn-ghost btn-sm">Edit</a>
+                    <form th:action="@{/vendor/packages/{id}/delete(id=${p.id})}" method="post" class="inl" onsubmit="return confirm('Delete this package?');"><button type="submit" class="btn btn-danger btn-sm">Delete</button></form></td>
+            </tr>
+            </tbody></table></div>
+    </section>
+</main></body></html>

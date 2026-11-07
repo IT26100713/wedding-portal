@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/booking/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/booking/css/wedding.css}" href="/booking/css/wedding.css" rel="stylesheet">
+    <link th:href="@{/booking/css/booking-cards.css}" href="/booking/css/booking-cards.css" rel="stylesheet">
+    <link th:href="@{/booking/css/my-bookings.css}" href="/booking/css/my-bookings.css" rel="stylesheet">
+    <link th:href="@{/booking/css/romantic-theme.css}" href="/booking/css/romantic-theme.css" rel="stylesheet">
+    <title>My Bookings</title>
+</head>
+<body class="booking-page my-bookings-page">
+    <nav class="navbar navbar-expand bg-white border-bottom mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" th:href="@{/bookings/new}"><span class="brand-heart" aria-hidden="true">♥</span> Forever &amp; Always</a>
+            <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link" th:href="@{/bookings/new}">Book a Wedding</a>
+                <a class="nav-link" aria-current="page" th:href="@{/bookings/my}">My Bookings</a>
+            </div>
+        </div>
+    </nav>
+<main class="container py-4">
+    <header class="text-center mb-5 wedding-hero">
+        <span class="text-uppercase small text-muted">Every detail, in one place</span>
+        <h1 class="display-5 fw-bold mt-2">My Bookings</h1>
+        <p class="text-muted">Find your wedding plans, review your vendors, and manage your special day.</p>
+    </header>
+
+    <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <form method="get" th:action="@{/bookings/my}" class="booking-search mb-4">
+        <div class="search-field">
+            <label for="booking-phone" class="form-label">Your phone number</label>
+            <input id="booking-phone" type="tel" autocomplete="tel" class="form-control" name="phone" th:value="${phone}" placeholder="e.g. 0712345678" required>
+        </div>
+        <div class="search-action">
+            <button class="btn btn-primary" type="submit">Find my bookings</button>
+        </div>
+    </form>
+
+    <div class="lookup-hint" th:if="${bookings == null}">
+        <h2 class="h5">Your special day, thoughtfully planned</h2>
+        <p class="text-muted mb-3">Enter the phone number used when booking to see your wedding details.</p>
+        <a class="btn btn-outline-primary" th:href="@{/bookings/new}">Explore wedding packages</a>
+    </div>
+    <th:block th:if="${bookings != null}">
+        <div class="alert alert-info" th:if="${#lists.isEmpty(bookings)}">
+            No bookings found for this phone number. <a th:href="@{/bookings/new}">Book your wedding</a>
+        </div>
+
+        <div class="card booking-result mb-4" th:each="b : ${bookings}">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <div>
+                        <h2 class="h5 mb-1" th:text="${b.couple.brideName} + ' & ' + ${b.couple.groomName}"></h2>
+                        <div class="text-muted small"
+                             th:text="'Booking ' + ${b.id} + ' · ' + ${b.eventDate} + ' · ' + ${b.guestCount ?: 0} + ' guests'"></div>
+                    </div>
+                    <span class="badge align-self-start" th:classappend="${b.status == 'Confirmed'} ? 'text-bg-success' : 'text-bg-secondary'" th:text="${b.status}"></span>
+                </div>
+                <ul class="list-unstyled my-4 booked-vendors">
+                    <li>Photographer: <strong th:text="${b.photographer} ?: 'Not needed'"></strong></li>
+                    <li>Caterer: <strong th:text="${b.caterer} ?: 'Not needed'"></strong></li>
+                    <li>Decorator: <strong th:text="${b.decorator} ?: 'Not needed'"></strong></li>
+                    <li>Venue: <strong th:text="${b.venue} ?: 'Not needed'"></strong></li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 booking-footer">
+                    <div class="fs-5">Total: Rs. <span th:text="${#numbers.formatDecimal(totals[b.id], 1, 'COMMA', 2, 'POINT')}"></span></div>
+                    <div class="d-flex gap-2 booking-actions">
+                        <a class="btn btn-outline-primary btn-sm" th:href="@{/bookings/{id}/edit(id=${b.id}, phone=${phone})}">Update</a>
+                        <form method="post" th:action="@{/bookings/{id}/cancel(id=${b.id}, phone=${phone})}"
+                              onsubmit="return confirm('Cancel this booking? It will be deleted.');">
+                            <button class="btn btn-outline-danger btn-sm" type="submit">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</main>
+</body>
+</html>

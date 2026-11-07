@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/booking/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/booking/css/theme.css}" href="/booking/css/theme.css" rel="stylesheet">
+    <title>All Bookings</title>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand bg-white border-bottom mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" th:href="@{/bookings/new}">Wedding Portal</a>
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/bookings/new}">Book a Wedding</a>
+                <a class="nav-link" th:href="@{/bookings/my}">My Bookings</a>
+                <a class="nav-link" th:href="@{/bookings/admin}">All Bookings</a>
+            </div>
+        </div>
+    </nav>
+<main class="container">
+    <h1 class="h3 mb-3">All bookings (admin view)</h1>
+
+    <p th:if="${#lists.isEmpty(bookings)}">No bookings yet.</p>
+
+    <div class="table-responsive" th:unless="${#lists.isEmpty(bookings)}">
+        <table class="table table-striped bg-white align-middle">
+            <thead>
+            <tr>
+                <th>ID</th><th>Bride</th><th>Groom</th><th>Phone</th><th>Date</th><th>Guests</th>
+                <th>Photographer</th><th>Caterer</th><th>Decorator</th><th>Venue</th><th>Status</th><th class="text-end">Total (Rs.)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${bookings}">
+                <td th:text="${b.id}"></td>
+                <td th:text="${b.couple.brideName}"></td>
+                <td th:text="${b.couple.groomName}"></td>
+                <td th:text="${b.couple.phone}"></td>
+                <td th:text="${b.eventDate}"></td>
+                <td th:text="${b.guestCount}"></td>
+                <td th:text="${b.photographer} ?: '-'"></td>
+                <td th:text="${b.caterer} ?: '-'"></td>
+                <td th:text="${b.decorator} ?: '-'"></td>
+                <td th:text="${b.venue} ?: '-'"></td>
+                <td th:text="${b.status}"></td>
+                <td class="text-end" th:text="${#numbers.formatDecimal(totals[b.id], 1, 'COMMA', 2, 'POINT')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h5 mt-4">bookings.txt (file copy)</h2>
+    <p class="text-muted small">Read from the bookings.txt file in the project folder. It is rewritten after every booking change.</p>
+    <pre class="bg-white border rounded p-3 small" th:if="${!#lists.isEmpty(fileLines)}"><th:block th:each="line : ${fileLines}">[[${line}]]
+</th:block></pre>
+    <p th:if="${#lists.isEmpty(fileLines)}">The file has not been created yet. It appears after the first booking change.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* Loaded after wedding.css; scoped to this booking page. */
+body.booking-page { background: #faf7f2; color: #342e29; }
+.booking-page .navbar { background: #fffdf9 !important; }
+.booking-page .navbar-brand { color: #72543f; }
+.booking-page main.container { max-width: 1240px; }
+.booking-page h1,.booking-page .package-content h2 { font-family: Georgia, serif; }
+.booking-page .booking-form { display: block; }
+.booking-page .package-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 30px; align-items: start; }
+.booking-page .package-card { background: #fff; border: 1px solid #e4dacf; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 28px #543b2210; }
+.booking-page .package-card.is-selected { outline: 3px solid #98744e; outline-offset: 3px; }
+.booking-page .package-photo { height: 210px; position: relative; background: linear-gradient(135deg,#d6bfa1,#ede2d2 48%,#8e9d81); }
+.booking-page .photo-2,.booking-page .photo-5 { background: linear-gradient(135deg,#b59780,#e9d8c4,#a6ad9c); }
+.booking-page .photo-3,.booking-page .photo-custom { background: linear-gradient(135deg,#9ba88b,#e1dfc7,#b99c80); }
+.booking-page .package-photo img { width: 100%; height: 100%; object-fit: cover; }
+.booking-page .package-photo span { position: absolute; bottom: 14px; left: 16px; padding: 6px 12px; background: #fffffff0; border-radius: 20px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.booking-page .package-content { padding: 23px; }
+.booking-page .package-content h2 { font-size: 24px; margin-bottom: 16px; }
+.booking-page .vendor-list { list-style: none; padding: 0; font-size: 14px; line-height: 1.9; color: #655c54; }
+.booking-page .package-price { font-size: 24px; font-weight: 700; margin: 18px 0 0; color: #72543f; }
+.booking-page .price-note { color: #766d65; font-size: 12px; }
+.booking-page .choose-package { width: 100%; border: 1px solid #98744e; background: #fff; color: #72543f; padding: 10px; border-radius: 7px; }
+.booking-page .choose-package:hover,.booking-page .choose-package[aria-pressed=true] { background: #72543f; color: white; }
+.booking-page .selection-summary { margin: 32px 0; padding: 22px; background: #eee5d9; border-radius: 12px; display: flex; justify-content: space-between; gap: 16px; }
+.booking-page #booking-details,.booking-page #booking-details + div { background: white; padding: 26px; border-radius: 12px; scroll-margin-top: 20px; }
+.booking-page .custom-card .form-select { font-size: 13px; }
+.booking-page .btn-primary { background: #72543f; border-color: #72543f; }
+.booking-page button:focus-visible,.booking-page a:focus-visible { outline: 3px solid #98744e; outline-offset: 3px; }
+@media(max-width: 991px) { .booking-page .package-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width: 600px) { .booking-page .package-grid { grid-template-columns: 1fr; } .booking-page .selection-summary { flex-direction: column; } .booking-page .navbar-brand { font-size: 16px; } }
