@@ -1,0 +1,65 @@
+============================
+Bride        : ete
+Groom        : fdh
+Phone        : 1233
+Photographer : Golden Frame
+Caterer      : Not selected
+Decorator    : Not selected
+Venue        : Not selected
+Guests       : 243
+Event Date   : 2026-10-31
+Status       : Confirmed
+Total (Rs.)  : 90000.0
+
+============================
+Bride        : cvczvz
+Groom        : affa
+Phone        : 124787
+Photographer : Golden Frame
+Caterer      : Spice Garden
+Decorator    : Not selected
+Venue        : Not selected
+Guests       : 213
+Event Date   : 2026-11-19
+Status       : Confirmed
+Total (Rs.)  : 516000.0
+
+============================
+Bride        : hjqhr
+Groom        : uzcytu
+Phone        : 1234
+Photographer : Golden Frame
+Caterer      : Hilton Caterers
+Decorator    : Charming Events
+Venue        : Galle Face Hotel
+Guests       : 150
+Event Date   : 2026-11-21
+Status       : Confirmed
+Total (Rs.)  : 1155000.0
+
+============================
+Bride        : qwe
+Groom        : asd
+Phone        : 12345
+Photographer : Snap Moments
+Caterer      : Taste of Lanka
+Decorator    : Petal Touch
+Venue        : Waters Edge
+Guests       : 123
+Event Date   : 2026-11-22
+Status       : Confirmed
+Total (Rs.)  : 672900.0
+
+============================
+Bride        : sfsdf
+Groom        : ccxc
+Phone        : 456
+Photographer : Lens Studio
+Caterer      : Spice Garden
+Decorator    : Bloom Decor
+Venue        : Mount Lavinia Hotel
+Guests       : 123
+Event Date   : 2026-11-11
+Status       : Confirmed
+Total (Rs.)  : 812500.0
+

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --rose-primary: #d47a8e;
+    --rose-dark: #b0576c;
+    --bg-gradient-start: #fbf6f7;
+    --bg-gradient-end: #f3e6ea;
+    --card-bg: rgba(255, 255, 255, 0.95);
+}
+
+body.bg-light {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%) fixed !important;
+    color: #2c3e50;
+    min-height: 100vh;
+}
+
+/* Elegant Navbar */
+nav.navbar {
+    background: linear-gradient(90deg, #2c3e50, #415b76) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+nav.navbar .navbar-brand {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+}
+
+/* Headings */
+h1, h2, h3, .navbar-brand {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Card Container Styling */
+.card {
+    border: none !important;
+    border-radius: 20px !important;
+    background: var(--card-bg);
+    box-shadow: 0 12px 35px rgba(180, 110, 125, 0.1) !important;
+}
+
+/* Inputs and Select Boxes */
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 1.5px solid #e2d1d6;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--rose-primary);
+    box-shadow: 0 0 0 0.2rem rgba(212, 122, 142, 0.15);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--rose-primary), var(--rose-dark));
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--rose-dark), #944456);
+    transform: translateY(-1px);
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
