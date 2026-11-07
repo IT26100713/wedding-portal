@@ -1,4 +1,4 @@
-package com.WD08.WeddingMangementSystem.config;
+package com.WD08.WeddingMangementSystem.booking.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

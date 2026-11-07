@@ -14,7 +14,7 @@ import com.WD08.WeddingMangementSystem.booking.model.Venue;
 // The vendors a couple can choose from: 4 photographers, 4 caterers and 4 decorators.
 // The list holds Vendor objects, but each one is really a Photographer, Caterer or
 // Decorator (POLYMORPHISM: one list, different kinds of objects).
-@Service
+@Service("bookingVendorService")
 public class VendorService {
     private List<Vendor> vendors = new ArrayList<Vendor>();
 
