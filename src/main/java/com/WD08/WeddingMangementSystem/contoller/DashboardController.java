@@ -66,47 +66,4 @@ public class DashboardController {
         }
     }
 
-    // --- ADMIN DASHBOARD ---
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard(Principal principal, Model model) {
-        User admin = userService.getUserByEmail(principal.getName());
-        model.addAttribute("admin", admin);
-        model.addAttribute("users", userService.getAllUsers());
-        return "admin-dashboard";
-    }
-
-    // --- DELETE USER (ADMIN) ---
-    @PostMapping("/admin/users/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin/dashboard?deleted";
-    }
-
-    // --- SHOW EDIT USER FORM (ADMIN) ---
-    @GetMapping("/admin/users/edit/{id}")
-    public String showEditUserForm(@PathVariable Long id, Model model) {
-        User user = userService.getUserById(id);
-        UserUpdateDto dto = new UserUpdateDto();
-        dto.setFullName(user.getFullName());
-        dto.setEmail(user.getEmail());
-        dto.setPhoneNumber(user.getPhoneNumber());
-
-        model.addAttribute("user", user);
-        model.addAttribute("updateDto", dto);
-        return "edit-user";
-    }
-
-    // --- PROCESS EDIT USER (ADMIN) ---
-    @PostMapping("/admin/users/edit/{id}")
-    public String updateUser(@PathVariable Long id,
-                             @ModelAttribute("updateDto") UserUpdateDto dto,
-                             RedirectAttributes redirectAttributes) {
-        try {
-            userService.updateUser(id, dto);
-            return "redirect:/admin/dashboard?updated";
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/users/edit/" + id;
-        }
-    }
 }

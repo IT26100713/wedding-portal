@@ -56,6 +56,9 @@ public class VendorService {
         if (password == null || !encoder.matches(password, vendor.getPasswordHash())) {
             throw new VendorException("Invalid email or password.");
         }
+        if (!"APPROVED".equals(vendor.getApprovalStatus())) {
+            throw new VendorException("Your account is " + vendor.getApprovalStatus().toLowerCase() + ". " + vendor.getApprovalReason());
+        }
         return vendor;
     }
 
