@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vendor Login | Forever &amp; Always</title><link rel="stylesheet" th:href="@{/vendor/css/vendor-theme.css}"></head>
-<body>
+<body><div th:if="${param.approvalRequired}" class="alert alert-warning" role="alert">Administrator approval is required. Please log in again to check your account status.</div>
 <!--<canvas id="hearts-canvas" aria-hidden="true"
         style="position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:10;"></canvas>-->
 <div class="stage">

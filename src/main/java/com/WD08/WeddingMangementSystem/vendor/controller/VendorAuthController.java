@@ -63,7 +63,7 @@ public class VendorAuthController {
         try {
             vendorService.register(form);
             redirectAttributes.addFlashAttribute("success",
-                    "Registration successful! Please log in.");
+                    "Registration received! Please wait for administrator approval before logging in.");
             return "redirect:/vendor/login";
         } catch (VendorException e) {
             model.addAttribute("error", e.getMessage());

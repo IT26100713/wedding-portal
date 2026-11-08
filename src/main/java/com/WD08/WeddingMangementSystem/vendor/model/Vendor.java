@@ -3,6 +3,12 @@ package com.WD08.WeddingMangementSystem.vendor.model;
 public abstract class Vendor {
 
     // ENCAPSULATION: fields are private, accessed only through getters/setters
+    private String approvalStatus = "PENDING";
+    private String approvalReason = "";
+    public String getApprovalStatus() { return approvalStatus; }
+    public void setApprovalStatus(String value) { approvalStatus=value; }
+    public String getApprovalReason() { return approvalReason; }
+    public void setApprovalReason(String value) { approvalReason=value; }
     private Long id;
     private String businessName;
     private String ownerName;

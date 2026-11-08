@@ -21,6 +21,8 @@ public class VendorRowMapper implements RowMapper<Vendor> {
         vendor.setCity(rs.getString("city"));
         vendor.setDescription(rs.getString("description"));
         vendor.setBaseRate(rs.getDouble("base_rate"));
+        vendor.setApprovalStatus(rs.getString("approval_status"));
+        vendor.setApprovalReason(rs.getString("approval_reason"));
         return vendor;
     }
 }
