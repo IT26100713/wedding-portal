@@ -1,17 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Customer Dashboard | Forever &amp; Always</title>
 
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 
@@ -72,7 +70,7 @@
         .navbar-brand i { color: #ffd3a8; }
         .navbar-custom.scrolled .navbar-brand { color: var(--berry); }
 
-        /* NAV LINKS (desktop) */
+        /* NAV LINKS */
         .nav-links {
             display: flex;
             align-items: center;
@@ -92,12 +90,28 @@
             transition: .25s;
         }
 
-        .nav-links a:hover { background: rgba(255,255,255,.18); color: white; }
-        .navbar-custom.scrolled .nav-links a { color: var(--plum); }
-        .navbar-custom.scrolled .nav-links a:hover { background: #fff0f6; color: var(--berry); }
+        .nav-links a:hover {
+            background: rgba(255,255,255,.18);
+            color: white;
+        }
 
-        .welcome-text { color: white; font-size: .87rem; }
-        .navbar-custom.scrolled .welcome-text { color: var(--plum); }
+        .navbar-custom.scrolled .nav-links a {
+            color: var(--plum);
+        }
+
+        .navbar-custom.scrolled .nav-links a:hover {
+            background: #fff0f6;
+            color: var(--berry);
+        }
+
+        .welcome-text {
+            color: white;
+            font-size: .87rem;
+        }
+
+        .navbar-custom.scrolled .welcome-text {
+            color: var(--plum);
+        }
 
         /* LOGOUT BUTTON */
         .btn-logout {
@@ -111,7 +125,10 @@
             transition: .3s;
         }
 
-        .btn-logout:hover { background: white; color: var(--berry); }
+        .btn-logout:hover {
+            background: white;
+            color: var(--berry);
+        }
 
         .navbar-custom.scrolled .btn-logout {
             background: #fff0f6;
@@ -119,7 +136,10 @@
             border-color: #fac6dc;
         }
 
-        .navbar-custom.scrolled .btn-logout:hover { background: var(--berry); color: white; }
+        .navbar-custom.scrolled .btn-logout:hover {
+            background: var(--berry);
+            color: white;
+        }
 
         /* ANIMATED HERO */
         .hero-section {
@@ -165,7 +185,12 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(66,18,57,.08), rgba(62,13,53,.06) 38%, rgba(50,16,50,.77));
+            background: linear-gradient(
+                180deg,
+                rgba(66,18,57,.08),
+                rgba(62,13,53,.06) 38%,
+                rgba(50,16,50,.77)
+            );
             pointer-events: none;
         }
 
@@ -193,7 +218,10 @@
         }
 
         .hero-eyebrow::before,
-        .hero-eyebrow::after { content: '✦'; color: #ffc3a6; }
+        .hero-eyebrow::after {
+            content: '✦';
+            color: #ffc3a6;
+        }
 
         .hero-content h1 {
             margin-bottom: 18px;
@@ -204,7 +232,10 @@
             text-shadow: 0 6px 32px rgba(39,13,43,.27);
         }
 
-        .hero-content h1 em { color: #ffe1d4; font-weight: 400; }
+        .hero-content h1 em {
+            color: #ffe1d4;
+            font-weight: 400;
+        }
 
         .hero-content p {
             max-width: 570px;
@@ -236,7 +267,11 @@
             transition: .3s;
         }
 
-        .btn-hero:hover { transform: translateY(-3px); background: #ffdcbb; color: #682b5b; }
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            background: #ffdcbb;
+            color: #682b5b;
+        }
 
         .btn-hero.ghost {
             color: white;
@@ -245,7 +280,10 @@
             box-shadow: none;
         }
 
-        .btn-hero.ghost:hover { background: white; color: #682b5b; }
+        .btn-hero.ghost:hover {
+            background: white;
+            color: #682b5b;
+        }
 
         .scroll-indicator {
             position: absolute;
@@ -268,7 +306,9 @@
             animation: scrollNudge 1.8s infinite;
         }
 
-        @keyframes scrollNudge { 50% { transform: translateY(6px); } }
+        @keyframes scrollNudge {
+            50% { transform: translateY(6px); }
+        }
 
         /* DASHBOARD SECTION */
         .dashboard-section {
@@ -281,7 +321,9 @@
                 linear-gradient(180deg, #fffaf7, #fcf8ff 50%, #fff9f2);
         }
 
-        .section-heading { margin-bottom: 32px; }
+        .section-heading {
+            margin-bottom: 32px;
+        }
 
         .section-eyebrow {
             display: inline-block;
@@ -305,9 +347,13 @@
             color: var(--plum);
         }
 
-        .section-heading p { margin: 0; color: var(--muted); font-size: .94rem; }
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: .94rem;
+        }
 
-        /* MY PROFILE BUTTON */
+        /* PROFILE AND REVIEW BUTTONS */
         .btn-profile {
             display: inline-flex;
             align-items: center;
@@ -342,7 +388,10 @@
             transition: .3s ease;
         }
 
-        .stat-card:hover { transform: translateY(-7px); box-shadow: 0 26px 50px rgba(104,58,96,.17); }
+        .stat-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 26px 50px rgba(104,58,96,.17);
+        }
 
         .stat-card::after {
             content: '';
@@ -356,9 +405,17 @@
             pointer-events: none;
         }
 
-        .stat-card.date   { background: linear-gradient(132deg, #ffe4d8, #ffd9e3); }
-        .stat-card.budget { background: linear-gradient(132deg, #eee1ff, #e4d8ff); }
-        .stat-card.guests { background: linear-gradient(132deg, #d8f8e9, #c8f0ed); }
+        .stat-card.date {
+            background: linear-gradient(132deg, #ffe4d8, #ffd9e3);
+        }
+
+        .stat-card.budget {
+            background: linear-gradient(132deg, #eee1ff, #e4d8ff);
+        }
+
+        .stat-card.guests {
+            background: linear-gradient(132deg, #d8f8e9, #c8f0ed);
+        }
 
         .stat-icon {
             width: 54px;
@@ -372,11 +429,16 @@
             font-size: 1.35rem;
         }
 
-        .stat-card.date .stat-icon   { color: #dd668a; }
+        .stat-card.date .stat-icon { color: #dd668a; }
         .stat-card.budget .stat-icon { color: #9262d6; }
         .stat-card.guests .stat-icon { color: #2baf97; }
 
-        .stat-card h6 { margin-bottom: 7px; color: #766377; font-size: .86rem; font-weight: 600; }
+        .stat-card h6 {
+            margin-bottom: 7px;
+            color: #766377;
+            font-size: .86rem;
+            font-weight: 600;
+        }
 
         .stat-card h3 {
             margin: 0;
@@ -387,8 +449,10 @@
             overflow-wrap: anywhere;
         }
 
-        /* SERVICES SECTION */
-        .services-section { margin-top: 86px; }
+        /* WEDDING SERVICES */
+        .services-section {
+            margin-top: 86px;
+        }
 
         .services-section .section-eyebrow {
             color: #8359c7;
@@ -408,9 +472,17 @@
             transition: .3s;
         }
 
-        .service-card:hover { transform: translateY(-7px); box-shadow: 0 28px 59px rgba(102,64,106,.16); }
+        .service-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 28px 59px rgba(102,64,106,.16);
+        }
 
-        .service-image { position: relative; height: 254px; overflow: hidden; background: #eacfe5; }
+        .service-image {
+            position: relative;
+            height: 254px;
+            overflow: hidden;
+            background: #eacfe5;
+        }
 
         .service-image img {
             display: block;
@@ -420,7 +492,9 @@
             transition: transform .7s ease;
         }
 
-        .service-card:hover .service-image img { transform: scale(1.065); }
+        .service-card:hover .service-image img {
+            transform: scale(1.065);
+        }
 
         .service-image::after {
             content: '';
@@ -443,7 +517,12 @@
             font-weight: 700;
         }
 
-        .service-body { display: flex; flex: 1; flex-direction: column; padding: 27px 31px 31px; }
+        .service-body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 27px 31px 31px;
+        }
 
         .service-icon {
             width: 51px;
@@ -466,9 +545,13 @@
             color: var(--plum);
         }
 
-        .service-card p { margin-bottom: 22px; color: var(--muted); line-height: 1.78; font-size: .89rem; }
+        .service-card p {
+            margin-bottom: 22px;
+            color: var(--muted);
+            line-height: 1.78;
+            font-size: .89rem;
+        }
 
-        /* SERVICE BUTTONS */
         .btn-service {
             display: inline-flex;
             align-items: center;
@@ -484,7 +567,11 @@
             transition: .3s;
         }
 
-        .btn-service:hover { color: white; background: #bd3d79; transform: translateY(-2px); }
+        .btn-service:hover {
+            color: white;
+            background: #bd3d79;
+            transform: translateY(-2px);
+        }
 
         .btn-service.outline {
             color: var(--berry);
@@ -492,33 +579,84 @@
             border: 1px solid #fac6dc;
         }
 
-        .btn-service.outline:hover { color: white; background: var(--berry); }
+        .btn-service.outline:hover {
+            color: white;
+            background: var(--berry);
+        }
 
-        .service-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
-        .service-actions .btn-service { margin-top: 0; }
+        .service-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
 
-        /* Colour themes per card */
-        .service-card.catering .service-sticker { color: #8458ca; }
-        .service-card.catering .service-icon { background: #efe5ff; color: #8354c4; }
-        .service-card.catering .btn-service { background: #9773db; }
-        .service-card.catering .btn-service:hover { background: #744cbd; }
+        .service-actions .btn-service {
+            margin-top: 0;
+        }
 
-        .service-card.bookings .service-sticker { color: #d1623f; }
-        .service-card.bookings .service-icon { background: #ffe9de; color: #e0704a; }
-        .service-card.bookings .btn-service { background: #ee8062; }
-        .service-card.bookings .btn-service:hover { background: #d1623f; }
-        .service-card.bookings .btn-service.outline { color: #d1623f; background: #fff1ea; border-color: #ffd5c4; }
-        .service-card.bookings .btn-service.outline:hover { color: white; background: #d1623f; }
+        /* BOOKING CARD COLORS */
+        .service-card.bookings .service-sticker {
+            color: #d1623f;
+        }
 
-        .service-card.events .service-sticker { color: #1f9a84; }
-        .service-card.events .service-icon { background: #dcf7ef; color: #2baf97; }
-        .service-card.events .btn-service { background: #3fbfa6; }
-        .service-card.events .btn-service:hover { background: #1f9a84; }
-        .service-card.events .btn-service.outline { color: #1f9a84; background: #e6faf4; border-color: #bfeee0; }
-        .service-card.events .btn-service.outline:hover { color: white; background: #1f9a84; }
+        .service-card.bookings .service-icon {
+            background: #ffe9de;
+            color: #e0704a;
+        }
+
+        .service-card.bookings .btn-service {
+            background: #ee8062;
+        }
+
+        .service-card.bookings .btn-service:hover {
+            background: #d1623f;
+        }
+
+        .service-card.bookings .btn-service.outline {
+            color: #d1623f;
+            background: #fff1ea;
+            border-color: #ffd5c4;
+        }
+
+        .service-card.bookings .btn-service.outline:hover {
+            color: white;
+            background: #d1623f;
+        }
+
+        /* EVENT CARD COLORS */
+        .service-card.events .service-sticker {
+            color: #1f9a84;
+        }
+
+        .service-card.events .service-icon {
+            background: #dcf7ef;
+            color: #2baf97;
+        }
+
+        .service-card.events .btn-service {
+            background: #3fbfa6;
+        }
+
+        .service-card.events .btn-service:hover {
+            background: #1f9a84;
+        }
+
+        .service-card.events .btn-service.outline {
+            color: #1f9a84;
+            background: #e6faf4;
+            border-color: #bfeee0;
+        }
+
+        .service-card.events .btn-service.outline:hover {
+            color: white;
+            background: #1f9a84;
+        }
 
         /* QUICK TOOLS */
-        .tools-section { margin-top: 86px; }
+        .tools-section {
+            margin-top: 86px;
+        }
 
         .tools-section .section-eyebrow {
             color: #1f9a84;
@@ -545,11 +683,23 @@
             font-weight: 600;
         }
 
-        .tool-panel > p { margin-bottom: 20px; color: var(--muted); font-size: .87rem; line-height: 1.7; }
+        .tool-panel > p {
+            margin-bottom: 20px;
+            color: var(--muted);
+            font-size: .87rem;
+            line-height: 1.7;
+        }
+
         .tool-panel.bookings h5 i { color: #e0704a; }
         .tool-panel.events h5 i { color: #2baf97; }
 
-        .tool-label { display: block; margin-bottom: 6px; color: #766377; font-size: .78rem; font-weight: 700; }
+        .tool-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #766377;
+            font-size: .78rem;
+            font-weight: 700;
+        }
 
         .tool-panel .form-control,
         .tool-panel .form-select {
@@ -581,13 +731,32 @@
             transition: .3s;
         }
 
-        .btn-tool:hover { color: white; transform: translateY(-2px); }
-        .tool-panel.bookings .btn-tool { background: linear-gradient(120deg, #ff8477, #f56592); box-shadow: 0 9px 22px rgba(245,101,146,.25); }
-        .tool-panel.events .btn-tool { background: linear-gradient(120deg, #3fbfa6, #71cdb7); box-shadow: 0 9px 22px rgba(63,191,166,.25); }
+        .btn-tool:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tool-panel.bookings .btn-tool {
+            background: linear-gradient(120deg, #ff8477, #f56592);
+            box-shadow: 0 9px 22px rgba(245,101,146,.25);
+        }
+
+        .tool-panel.events .btn-tool {
+            background: linear-gradient(120deg, #3fbfa6, #71cdb7);
+            box-shadow: 0 9px 22px rgba(63,191,166,.25);
+        }
 
         /* REVEAL ANIMATION */
-        .reveal { opacity: 0; transform: translateY(25px); transition: opacity .7s ease, transform .7s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* FOOTER */
         .footer {
@@ -613,7 +782,14 @@
             .btn-logout { font-size: .75rem; padding: 8px 13px; }
 
             .hero-section { height: 150vh; }
-            .hero-frame { top: 9%; left: 5%; width: 90%; height: 82%; border-radius: 42% 42% 20px 20px; }
+            .hero-frame {
+                top: 9%;
+                left: 5%;
+                width: 90%;
+                height: 82%;
+                border-radius: 42% 42% 20px 20px;
+            }
+
             .hero-content { bottom: 16%; left: 7%; right: 7%; }
             .hero-eyebrow { font-size: .53rem; letter-spacing: .09em; }
             .hero-content h1 { font-size: clamp(2.3rem, 9vw, 4rem); }
@@ -639,7 +815,10 @@
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
             .reveal { opacity: 1; transform: none; }
         }
     </style>
@@ -656,7 +835,6 @@
             Forever &amp; Always
         </a>
 
-        <!-- NAV LINKS -->
         <ul class="nav-links">
             <li><a th:href="@{/customer/venues}">Venues</a></li>
             <li><a th:href="@{/customer/services}">Services</a></li>
@@ -671,7 +849,6 @@
                 <strong th:text="${user.fullName}">Customer</strong>
             </span>
 
-            <!-- LOGOUT -->
             <form th:action="@{/logout}" method="post" class="m-0">
                 <button type="submit" class="btn btn-logout">
                     <i class="fa-solid fa-right-from-bracket me-1"></i>
@@ -689,13 +866,17 @@
     <div class="hero-sticky">
         <div class="hero-frame" id="heroFrame">
 
-            <img class="hero-image" src="/dashboard.avif" alt="Beautiful wedding celebration">
+            <img class="hero-image"
+                 th:src="@{/dashboard.avif}"
+                 alt="Beautiful wedding celebration">
 
             <div class="hero-overlay"></div>
 
             <div class="hero-content" id="heroContent">
 
-                <span class="hero-eyebrow">Your Dream Wedding Starts Here</span>
+                <span class="hero-eyebrow">
+                    Your Dream Wedding Starts Here
+                </span>
 
                 <h1>
                     Forever Begins<br>
@@ -714,7 +895,6 @@
                         <i class="fa-solid fa-arrow-down ms-2"></i>
                     </a>
 
-                    <!-- BookingController: GET /bookings/new -->
                     <a th:href="@{/bookings/new}" class="btn-hero ghost">
                         <i class="fa-solid fa-calendar-check"></i>
                         Make a Booking
@@ -747,10 +927,22 @@
                 <p>Keep track of your wedding plans in one place.</p>
             </div>
 
-            <a th:href="@{/customer/profile}" class="btn btn-profile">
-                <i class="fa-solid fa-user me-2"></i>
-                My Profile
-            </a>
+            <!-- REVIEW AND PROFILE BUTTONS -->
+            <div class="d-flex gap-3 flex-wrap">
+
+                <!-- NEW REVIEW BUTTON -->
+                <a th:href="@{/review}" class="btn btn-profile">
+                    <i class="fa-solid fa-star me-2"></i>
+                    Reviews &amp; Feedback
+                </a>
+
+                <!-- EXISTING PROFILE BUTTON -->
+                <a th:href="@{/customer/profile}" class="btn btn-profile">
+                    <i class="fa-solid fa-user me-2"></i>
+                    My Profile
+                </a>
+
+            </div>
 
         </div>
 
@@ -761,8 +953,12 @@
             <!-- WEDDING DATE -->
             <div class="col-12 col-md-4 reveal">
                 <div class="stat-card date">
-                    <div class="stat-icon"><i class="fa-regular fa-calendar-days"></i></div>
+                    <div class="stat-icon">
+                        <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+
                     <h6>Wedding Date</h6>
+
                     <h3 th:text="${user.weddingDate != null
                         ? #temporals.format(user.weddingDate, 'dd MMM yyyy')
                         : 'Not Set'}">
@@ -774,14 +970,21 @@
             <!-- WEDDING BUDGET -->
             <div class="col-12 col-md-4 reveal">
                 <div class="stat-card budget">
-                    <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
                     <h6>Wedding Budget</h6>
+
                     <h3>
                         <span th:if="${user.budget != null}"
                               th:text="${#numbers.formatDecimal(user.budget, 1, 'COMMA', 2, 'POINT')}">
                             0.00
                         </span>
-                        <span th:if="${user.budget == null}">Not Set</span>
+
+                        <span th:if="${user.budget == null}">
+                            Not Set
+                        </span>
                     </h3>
                 </div>
             </div>
@@ -789,8 +992,12 @@
             <!-- ESTIMATED GUESTS -->
             <div class="col-12 col-md-4 reveal">
                 <div class="stat-card guests">
-                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
                     <h6>Estimated Guests</h6>
+
                     <h3 th:text="${user.estimatedGuests != null
                         ? user.estimatedGuests
                         : 'Not Set'}">
@@ -807,77 +1014,21 @@
 
             <div class="section-heading reveal">
                 <span class="section-eyebrow">Plan With Ease</span>
-                <h2>Your Wedding Services</h2>
-                <p>Explore the services that help bring your dream wedding to life.</p>
+                <h2>Your Wedding Hub</h2>
+                <p>Manage your bookings and events in one place.</p>
             </div>
 
             <div class="row g-4">
 
-                <!-- VENUE RESERVATIONS -->
-                <div class="col-12 col-md-6 reveal">
-                    <div class="service-card venues">
-
-                        <div class="service-image">
-                            <img src="/login-bg.avif" alt="Romantic wedding venue" loading="lazy">
-                            <span class="service-sticker">
-                                <i class="fa-solid fa-heart me-1"></i>
-                                Beautiful spaces
-                            </span>
-                        </div>
-
-                        <div class="service-body">
-                            <div class="service-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
-                            <h4>Venue Reservations</h4>
-                            <p>
-                                Discover and plan the perfect venue
-                                for your unforgettable wedding celebration.
-                            </p>
-                            <a th:href="@{/customer/venues}" class="btn-service">
-                                Explore Venues
-                                <i class="fa-solid fa-arrow-right ms-2"></i>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- CATERING AND DECOR -->
-                <div class="col-12 col-md-6 reveal">
-                    <div class="service-card catering">
-
-                        <div class="service-image">
-                            <img src="/reservation.avif" alt="Wedding catering and decor" loading="lazy">
-                            <span class="service-sticker">
-                                <i class="fa-solid fa-star me-1"></i>
-                                Little details, big magic
-                            </span>
-                        </div>
-
-                        <div class="service-body">
-                            <div class="service-icon"><i class="fa-solid fa-utensils"></i></div>
-                            <h4>Catering &amp; Decor Services</h4>
-                            <p>
-                                Make your special day memorable
-                                with delicious food, beautiful decorations,
-                                and thoughtful details.
-                            </p>
-                            <a th:href="@{/customer/services}" class="btn-service">
-                                Explore Services
-                                <i class="fa-solid fa-arrow-right ms-2"></i>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- BOOKINGS  (BookingController) -->
+                <!-- WEDDING BOOKINGS -->
                 <div class="col-12 col-md-6 reveal">
                     <div class="service-card bookings">
 
                         <div class="service-image">
-                            <img src="/dashboard.avif" alt="Wedding booking" loading="lazy">
+                            <img th:src="@{/dashboard.avif}"
+                                 alt="Wedding booking"
+                                 loading="lazy">
+
                             <span class="service-sticker">
                                 <i class="fa-solid fa-ring me-1"></i>
                                 Everything in one booking
@@ -885,22 +1036,29 @@
                         </div>
 
                         <div class="service-body">
-                            <div class="service-icon"><i class="fa-solid fa-calendar-check"></i></div>
+
+                            <div class="service-icon">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+
                             <h4>Wedding Bookings</h4>
+
                             <p>
                                 Book your venue, photographer, caterer and decorator in one place,
                                 then view, change or cancel your booking any time.
                             </p>
+
                             <div class="service-actions">
-                                <!-- GET /bookings/new -->
+
                                 <a th:href="@{/bookings/new}" class="btn-service">
                                     New Booking
                                     <i class="fa-solid fa-plus ms-2"></i>
                                 </a>
-                                <!-- jumps to the phone lookup below (GET /bookings/my?phone=...) -->
+
                                 <a href="#my-bookings" class="btn-service outline">
                                     View My Bookings
                                 </a>
+
                             </div>
                         </div>
 
@@ -908,12 +1066,15 @@
                 </div>
 
 
-                <!-- EVENTS  (EventController) -->
+                <!-- WEDDING EVENTS -->
                 <div class="col-12 col-md-6 reveal">
                     <div class="service-card events">
 
                         <div class="service-image">
-                            <img src="/login-bg.avif" alt="Wedding events" loading="lazy">
+                            <img th:src="@{/login-bg.avif}"
+                                 alt="Wedding events"
+                                 loading="lazy">
+
                             <span class="service-sticker">
                                 <i class="fa-solid fa-champagne-glasses me-1"></i>
                                 Every celebration counts
@@ -921,23 +1082,31 @@
                         </div>
 
                         <div class="service-body">
-                            <div class="service-icon"><i class="fa-solid fa-calendar-days"></i></div>
+
+                            <div class="service-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+
                             <h4>Wedding Events</h4>
+
                             <p>
                                 Plan the engagement, the ceremony and the reception.
                                 Browse your events, create new ones and keep them up to date.
                             </p>
+
                             <div class="service-actions">
-                                <!-- GET /events -->
+
                                 <a th:href="@{/events}" class="btn-service">
                                     View Events
                                     <i class="fa-solid fa-arrow-right ms-2"></i>
                                 </a>
-                                <!-- GET /events/new -->
+
                                 <a th:href="@{/events/new}" class="btn-service outline">
                                     Create Event
                                 </a>
+
                             </div>
+
                         </div>
 
                     </div>
@@ -959,11 +1128,15 @@
 
             <div class="row g-4">
 
-                <!-- FIND MY BOOKINGS: GET /bookings/my?phone=... -->
+                <!-- FIND MY BOOKINGS -->
                 <div class="col-12 col-lg-6 reveal" id="my-bookings">
                     <div class="tool-panel bookings">
 
-                        <h5><i class="fa-solid fa-magnifying-glass"></i> Find my bookings</h5>
+                        <h5>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Find my bookings
+                        </h5>
+
                         <p>
                             Enter the phone number you used when booking to view,
                             edit or cancel your bookings.
@@ -971,7 +1144,10 @@
 
                         <form th:action="@{/bookings/my}" method="get">
 
-                            <label for="bookingPhone" class="tool-label">Phone number</label>
+                            <label for="bookingPhone" class="tool-label">
+                                Phone number
+                            </label>
+
                             <input type="tel"
                                    id="bookingPhone"
                                    name="phone"
@@ -990,11 +1166,15 @@
                 </div>
 
 
-                <!-- SEARCH EVENTS: GET /events?search=...&status=... -->
+                <!-- SEARCH EVENTS -->
                 <div class="col-12 col-lg-6 reveal" id="find-events">
                     <div class="tool-panel events">
 
-                        <h5><i class="fa-solid fa-filter"></i> Search events</h5>
+                        <h5>
+                            <i class="fa-solid fa-filter"></i>
+                            Search events
+                        </h5>
+
                         <p>Search by name and filter by status.</p>
 
                         <form th:action="@{/events}" method="get">
@@ -1002,7 +1182,10 @@
                             <div class="row g-3 mb-3">
 
                                 <div class="col-12 col-sm-7">
-                                    <label for="eventSearch" class="tool-label">Search</label>
+                                    <label for="eventSearch" class="tool-label">
+                                        Search
+                                    </label>
+
                                     <input type="text"
                                            id="eventSearch"
                                            name="search"
@@ -1011,8 +1194,13 @@
                                 </div>
 
                                 <div class="col-12 col-sm-5">
-                                    <label for="eventStatus" class="tool-label">Status</label>
-                                    <select id="eventStatus" name="status" class="form-select">
+                                    <label for="eventStatus" class="tool-label">
+                                        Status
+                                    </label>
+
+                                    <select id="eventStatus"
+                                            name="status"
+                                            class="form-select">
                                         <option value="">All</option>
                                         <option value="UPCOMING">Upcoming</option>
                                         <option value="COMPLETED">Completed</option>
@@ -1064,7 +1252,6 @@
         const prefersReducedMotion =
             window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-
         /* REVEAL DASHBOARD CARDS */
         const reveals = document.querySelectorAll(".reveal");
 
@@ -1089,14 +1276,18 @@
             });
         }
 
-
         /* PICTURE EXPANDS ON SCROLL */
         function updateHero() {
 
             const mobile = window.innerWidth <= 768;
 
-            const distance = Math.max(1, section.offsetHeight - window.innerHeight);
-            const position = (window.scrollY - section.offsetTop) / distance;
+            const distance = Math.max(
+                1,
+                section.offsetHeight - window.innerHeight
+            );
+
+            const position =
+                (window.scrollY - section.offsetTop) / distance;
 
             const progress = prefersReducedMotion
                 ? 0
@@ -1121,21 +1312,30 @@
             const bottomRadius = 30 * (1 - progress);
 
             frame.style.borderRadius =
-                arch + "% " + arch + "% " + bottomRadius + "px " + bottomRadius + "px";
+                arch + "% " + arch + "% " +
+                bottomRadius + "px " + bottomRadius + "px";
 
             /* FADE HERO TEXT */
-            const fade = Math.max(0, Math.min(1, (progress - 0.07) / 0.4));
+            const fade = Math.max(
+                0,
+                Math.min(1, (progress - 0.07) / 0.4)
+            );
 
             content.style.opacity = 1 - fade;
-            content.style.transform = "translateY(" + (-24 * fade) + "px)";
-            content.style.pointerEvents = fade > 0.95 ? "none" : "auto";
+            content.style.transform =
+                "translateY(" + (-24 * fade) + "px)";
+            content.style.pointerEvents =
+                fade > 0.95 ? "none" : "auto";
 
-            indicator.style.opacity = Math.max(0, 1 - progress * 5);
+            indicator.style.opacity =
+                Math.max(0, 1 - progress * 5);
 
             /* NAVBAR COLOR CHANGE */
-            navbar.classList.toggle("scrolled", window.scrollY > 50);
+            navbar.classList.toggle(
+                "scrolled",
+                window.scrollY > 50
+            );
         }
-
 
         /* SMOOTH SCROLL UPDATES */
         let frameQueued = false;

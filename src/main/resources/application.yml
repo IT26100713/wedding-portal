@@ -4,9 +4,15 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/wedding-booking-system?createDatabaseIfNotExist=true
     username: root
-    password: harsha2005
-
+    password: YOUR PASSWORD
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
+  thymeleaf:
+    cache: false
+  flyway:
+    enabled: false
+
+server:
+  port: 8080
